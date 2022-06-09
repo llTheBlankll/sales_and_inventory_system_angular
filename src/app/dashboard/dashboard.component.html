@@ -1,0 +1,99 @@
+<app-topnav></app-topnav>
+<div class="container">
+  <!-- INFORMATION CARDS -->
+  <div class="row">
+    <div class="col s12 m6 l4">
+      <div class="card red lighten-2 white-text">
+        <div class="card-content">
+          <span class="card-title">Total Items Price in the Inventory</span>
+          <h4>₱{{ inventory_value }}</h4>
+        </div>
+        <div class="card-action">
+          <a routerLink="/dashboard/items">Go to Items</a>
+        </div>
+      </div>
+    </div>
+    <div class="col s12 m6 l4">
+      <div class="card deep-purple white-text lighten-1">
+        <div class="card-content">
+          <span class="card-title">All Transaction happening.</span>
+          <h4>1 Transactions</h4>
+        </div>
+        <div class="card-action">
+          <a routerLink="/dashboard/transactions">Show all Transactions</a>
+        </div>
+      </div>
+    </div>
+    <div class="col s12 m6 l4">
+      <div class="card indigo white-text lighten-1">
+        <div class="card-content">
+          <span class="card-title">Sales this week.</span>
+          <h4>₱5,000</h4>
+        </div>
+        <div class="card-action">
+          <a routerLink="/dashboard/sales">Show all Sales this week.</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m12 l8">
+      <!-- SALES -->
+      <div class="divider"></div>
+      <div class="section">
+        <h5>Sales</h5>
+        <canvas baseChart [data]="this.lineChartData" [type]="this.lineChartType" [options]="this.lineChartOption"></canvas>
+      </div>
+    </div>
+    <!-- STOCKS -->
+    <div class="col s12 m12 l4">
+      <div class="divider"></div>
+      <div class="section">
+        <h5>Stocks</h5>
+        <table class="responsive-table centered">
+            <thead class="blue lighten-1 white-text">
+                <tr>
+                    <th>Item name</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of this.low_stocks">
+                    <td>{{ item.productName }}</td>
+                    <td>{{ item.productQuantity }}</td>
+                    <td>₱{{ item.productPrice }}</td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- RECENT TRANSACTION -->
+    <div class="col s12 m12 l8">
+      <div class="divider"></div>
+      <div class="section">
+        <h5>Recent Transactions</h5>
+        <table class="responsive-table centered">
+            <thead class="teal white-text lighten-1">
+                <tr>
+                    <th style="width: 200px;">Transaction Code</th>
+                    <th style="width: 250px;">Name</th>
+                    <th>Items in Cart</th>
+                    <th>Total Value</th>
+                    <th>#</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>12</td>
+                    <td>Flor ian Sari Sari Store</td>
+                    <td>215</td>
+                    <td>₱5,000</td>
+                    <td><a href="#">Show</a></td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

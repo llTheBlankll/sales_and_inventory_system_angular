@@ -1,0 +1,35 @@
+<app-topnav></app-topnav>
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <h5 class="card-title center" style="font-size: 2vw;">Suppliers</h5>
+            <a>Add new Supplier</a>
+            <table class="responsive-table centered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>Fax</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let supplier of this.supplierList">
+                        <td>{{ supplier.supplierName }}</td>
+                        <td>{{ supplier.supplierAddress }}</td>
+                        <td>{{ supplier.supplierPhone }}</td>
+                        <td>{{ (supplier.supplierFax == null) ? "Unspecified" : supplier.supplierFax }}</td>
+                        <td>{{ supplier.supplierEmail }}</td>
+                        <td>
+                            <a class="link">Update</a>
+                            |
+                            <a class="link">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
