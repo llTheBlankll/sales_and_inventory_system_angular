@@ -13,6 +13,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { OrdersComponent } from './orders/orders.component';
 import { SuppliersComponent } from './suppliers/suppliers.component';
 import { HttpClientModule } from "@angular/common/http";
+import { ModalItemUpdateComponent } from './modal-item-update/modal-item-update.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { HttpClientModule } from "@angular/common/http";
     SalesComponent,
     OrdersComponent,
     SuppliersComponent,
+    ModalItemUpdateComponent,
   ],
   imports: [
     BrowserModule,

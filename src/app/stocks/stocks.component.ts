@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Stock } from '../entities';
+import { FormGroup } from '@angular/forms';
+import { Category, Stock, Supplier } from '../entities';
 import { RequesterService } from '../requester.service';
 
 declare function activateModals(): any;
@@ -21,6 +22,7 @@ export class StocksComponent implements OnInit {
   // Item to be updated variables.
   updating_item_id: number = 0;
   updating_item_name: string = "";
+  item_form: Stock | undefined;
 
   constructor(private requester: RequesterService) {
   }
@@ -77,5 +79,26 @@ export class StocksComponent implements OnInit {
     }
 
     console.log("Updating item " + this.updating_item_name + " with an ID of " + this.updating_item_id)
+  }
+
+  setUpdateForm(id: number, name: string, description: string,
+     unit: string, price: number, quantity: number,
+      category: Category, status: string, other_details: string, 
+      supplier: Supplier) {
+        
+    this.setUpdatingItemName(id);
+
+    this.item_form = {
+      id: id,
+      productName: name,
+      productDescription: description,
+      productUnit: unit,
+      productPrice: price,
+      productQuantity: quantity,
+      productStatus: status,
+      category: category,
+      productOtherDetails: other_details,
+      supplier: supplier
+    }
   }
 }
