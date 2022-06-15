@@ -1,5 +1,5 @@
 <app-topnav></app-topnav>
-<app-modal-item-update [new_item_data]="this.item_form"></app-modal-item-update>
+<app-modal-item-update [item_data]="this.item_form"></app-modal-item-update>
 <div class="container">
     <div class="row">
         <div class="col s12 m12 l3">
@@ -68,7 +68,7 @@
                                 <td>{{ data.category.categoryName }}</td>
                                 <td>{{ data.productStatus }}</td>
                                 <td>
-                                    <a class="link modal-trigger" href="#update_item" (click)="setUpdateForm(data.id, data.productName, data.productDescription, data.productUnit, data.productPrice, data.productQuantity, data.category, data.productStatus, data.productOtherDetails, data.supplier)">Update</a>
+                                    <a class="link modal-trigger" data-target="update_item" (click)="setUpdateForm(data.id, data.productName, data.productDescription, data.productUnit, data.productPrice, data.productQuantity, data.category, data.productStatus, data.productOtherDetails, data.supplier)">Update</a>
                                     |
                                     <a class="link">Delete</a>
                                     |

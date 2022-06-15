@@ -14,3 +14,7 @@ function activateDropdowns() {
 function activateModals() {
   $(".modal").modal();
 }
+
+function activateSelectors() {
+  $("select").formSelect();
+}

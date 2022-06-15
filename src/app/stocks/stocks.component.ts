@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { Category, Stock, Supplier } from '../entities';
 import { RequesterService } from '../requester.service';
 
@@ -11,7 +10,6 @@ declare function activateModals(): any;
   styleUrls: ['./stocks.component.css']
 })
 
-
 export class StocksComponent implements OnInit {
 
   item_placeholder: string = "";
@@ -22,7 +20,9 @@ export class StocksComponent implements OnInit {
   // Item to be updated variables.
   updating_item_id: number = 0;
   updating_item_name: string = "";
-  item_form: Stock | undefined;
+  item_form!: Stock;
+
+  load_update_modal: boolean = false;
 
   constructor(private requester: RequesterService) {
   }
@@ -68,26 +68,15 @@ export class StocksComponent implements OnInit {
     
   }
 
-  // * This will get called when the user clicked on Update link in one of the row in the table.
-  setUpdatingItemName(id: number) {
-    for (let stock of this.stockList) {
-      if (stock.id == id) {
-        this.updating_item_id = stock.id;
-        this.updating_item_name = stock.productName;
-        break;
-      }
-    }
-
-    console.log("Updating item " + this.updating_item_name + " with an ID of " + this.updating_item_id)
-  }
-
   setUpdateForm(id: number, name: string, description: string,
      unit: string, price: number, quantity: number,
       category: Category, status: string, other_details: string, 
       supplier: Supplier) {
-        
-    this.setUpdatingItemName(id);
+      
+    // Load Update Modal.
+    this.load_update_modal = true;
 
+    // Send the data to the update modal (Child)
     this.item_form = {
       id: id,
       productName: name,
@@ -99,6 +88,6 @@ export class StocksComponent implements OnInit {
       category: category,
       productOtherDetails: other_details,
       supplier: supplier
-    }
+    };
   }
 }

@@ -18,8 +18,8 @@ export interface Stock {
         supplierFax: string,
         supplierEmail: string,
         supplierOtherDetails: string
-    },
-    productOtherDetails: string
+    } | undefined,
+    productOtherDetails: string | null
 }
 
 export interface Category {

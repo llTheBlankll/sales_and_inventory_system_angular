@@ -1,19 +1,26 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, NgIterable, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Stock, Category, Supplier } from '../entities';
+import { RequesterService } from '../requester.service';
 
+declare function activateSelectors(): any;
 @Component({
   selector: 'app-modal-item-update',
   templateUrl: './modal-item-update.component.html',
   styleUrls: ['./modal-item-update.component.css']
 })
+
+
 export class ModalItemUpdateComponent implements OnInit {
 
-  constructor() { }
+  constructor(private requester: RequesterService) { 
+    this.item
+  }
+
 
   @Input()
-  new_item_data: Stock | undefined
-  item_new_update_data: FormGroup = new FormGroup(
+  item_data!: Stock;
+  item_new_form: FormGroup = new FormGroup(
     {
       productName: new FormControl("", Validators.required),
       productDescription: new FormControl("", Validators.required),
@@ -24,11 +31,54 @@ export class ModalItemUpdateComponent implements OnInit {
       category_name: new FormControl("", Validators.required),
     }
   );
+  item: Stock[] = [];
+
+  all_categories: Category | any;
 
   ngOnInit(): void {
+    // Get all categories for the dropdown category in form.
+    this.requester.getCategoryList().subscribe({
+      next: data => {
+        this.all_categories = data;
+        setTimeout(() => {
+          activateSelectors();
+        }, 500)
+      },
+      error: error => {
+        console.error(error);
+      }
+    });
   }
 
   updateItem() {
-    alert(JSON.stringify(this.item_new_update_data.value))
+    // Get the category.
+    this.requester.getCategoryByName(this.item_new_form.controls["category_name"].value).subscribe({
+      next: data => {
+        this.item.push({
+          id: this.item_data.id,
+          productName: this.item_new_form.controls["productName"].value,
+          productDescription: this.item_new_form.controls["productDescription"].value,
+          productUnit: this.item_new_form.controls["productUnit"].value,
+          productPrice: this.item_new_form.controls["productPrice"].value,
+          productQuantity: this.item_new_form.controls["productQuantity"].value,
+          productStatus: this.item_new_form.controls["productStatus"].value,
+          category: data,
+          productOtherDetails: null,
+          supplier: undefined
+        })
+
+        this.requester.updateStock(this.item[0]).subscribe({
+          next: data => {
+            alert("Update Success!");
+          },
+          error: error => {
+            console.error(error);
+          }
+        })
+      },
+      error: error => {
+        console.error(error);
+      }
+    });
   }
 }
