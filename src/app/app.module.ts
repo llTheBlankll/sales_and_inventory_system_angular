@@ -14,6 +14,8 @@ import { OrdersComponent } from './orders/orders.component';
 import { SuppliersComponent } from './suppliers/suppliers.component';
 import { HttpClientModule } from "@angular/common/http";
 import { ModalItemUpdateComponent } from './modal-item-update/modal-item-update.component';
+import { ModalItemDeleteComponent } from './modal-item-delete/modal-item-delete.component';
+import { ModalItemDetailsComponent } from './modal-item-details/modal-item-details.component';
 
 
 @NgModule({
@@ -27,6 +29,8 @@ import { ModalItemUpdateComponent } from './modal-item-update/modal-item-update.
     OrdersComponent,
     SuppliersComponent,
     ModalItemUpdateComponent,
+    ModalItemDeleteComponent,
+    ModalItemDetailsComponent,
   ],
   imports: [
     BrowserModule,

@@ -11,9 +11,8 @@ import { RequesterService } from '../requester.service';
 export class DashboardComponent implements OnInit {
 
   // On Startup dashboard display data.
-  inventory_value: number = 0;
+  inventory_value: string | undefined;
   low_stocks: Stock | any;
-
 
 
   constructor(private requester: RequesterService) { }
@@ -54,7 +53,7 @@ export class DashboardComponent implements OnInit {
     // Get Inventory Value.
     this.requester.getInventoryValue().subscribe({
       next: data => {
-        this.inventory_value = data;
+        this.inventory_value = Number(data).toLocaleString();
       },
       error: error => {
         console.error(error);

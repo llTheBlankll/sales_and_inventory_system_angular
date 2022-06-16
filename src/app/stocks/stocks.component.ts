@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Category, Stock, Supplier } from '../entities';
+import { Component, OnInit, } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Category, ItemData, Stock, Supplier } from '../entities';
 import { RequesterService } from '../requester.service';
 
 declare function activateModals(): any;
@@ -21,8 +22,13 @@ export class StocksComponent implements OnInit {
   updating_item_id: number = 0;
   updating_item_name: string = "";
   item_form!: Stock;
-
-  load_update_modal: boolean = false;
+  
+  search_form: FormGroup = new FormGroup({
+    search_name: new FormControl("", Validators.required)
+  });
+  
+  // Item to be deleted
+  delete_item: ItemData | any;
 
   constructor(private requester: RequesterService) {
   }
@@ -68,13 +74,17 @@ export class StocksComponent implements OnInit {
     
   }
 
+  setDeleteData(id: number, name: string) {
+    this.delete_item = {
+      item_id: id,
+      item_name: name
+    };
+  }
+
   setUpdateForm(id: number, name: string, description: string,
      unit: string, price: number, quantity: number,
       category: Category, status: string, other_details: string, 
       supplier: Supplier) {
-      
-    // Load Update Modal.
-    this.load_update_modal = true;
 
     // Send the data to the update modal (Child)
     this.item_form = {
@@ -89,5 +99,17 @@ export class StocksComponent implements OnInit {
       productOtherDetails: other_details,
       supplier: supplier
     };
+  }
+
+  refreshStocksTable() {
+    // Get Stock List.
+    this.requester.getStockList().subscribe({
+      next: data => {
+        this.stockList = data;
+      },
+      error: error => {
+        console.error(error);
+      }
+    });
   }
 }

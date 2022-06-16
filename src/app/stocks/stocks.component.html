@@ -1,5 +1,6 @@
 <app-topnav></app-topnav>
 <app-modal-item-update [item_data]="this.item_form"></app-modal-item-update>
+<app-modal-item-delete [delete_item]="this.delete_item"></app-modal-item-delete>
 <div class="container">
     <div class="row">
         <div class="col s12 m12 l3">
@@ -30,12 +31,12 @@
             <div class="card">
                 <div class="card-content">
                     <span class="card-title">Stocks</span>
-                    <form (ngSubmit)="searchSubmit()">
+                    <form (ngSubmit)="searchSubmit()" [formGroup]="this.search_form">
                         <div class="row valign-wrapper">
                             <div class="col s9 m10 l10 input-field">
                                 <input type="text" class="validate" id="item"
                                     (focus)="this.item_placeholder = 'Search item.'"
-                                    [placeholder]="this.item_placeholder" />
+                                    [placeholder]="this.item_placeholder" formControlName="search_name" />
                                 <label for="item">Item</label>
                             </div>
                             <button class="btn waves-effect btn-small col s3 m2 l2 green">
@@ -57,6 +58,9 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <tr *ngIf="this.stockList.length <= 0">
+                                <td colspan="8">No Items Available</td>
+                            </tr>
                             <tr *ngFor="let data of this.stockList">
                                 <td>{{ data.productName }}</td>
                                 <td style="word-wrap: break-word">
@@ -70,9 +74,9 @@
                                 <td>
                                     <a class="link modal-trigger" data-target="update_item" (click)="setUpdateForm(data.id, data.productName, data.productDescription, data.productUnit, data.productPrice, data.productQuantity, data.category, data.productStatus, data.productOtherDetails, data.supplier)">Update</a>
                                     |
-                                    <a class="link">Delete</a>
+                                    <a class="link modal-trigger" id="delete_item" data-target="delete_item" (click)="setDeleteData(data.id, data.productName)">Delete</a>
                                     |
-                                    <a class="link">Details</a>
+                                    <a class="link modal-trigger" data-target="details_item">Details</a>
                                 </td>
                             </tr>
                         </tbody>

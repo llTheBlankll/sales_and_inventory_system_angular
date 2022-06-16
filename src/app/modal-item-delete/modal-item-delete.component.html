@@ -1,0 +1,17 @@
+<div id="delete_item" class="modal">
+    <div class="modal-content center">
+        <h4>Delete Item</h4>
+        <h6>Do you really want to delete this item?</h6>
+        <h6>
+            <b>
+                {{ (this.delete_item != undefined || this.delete_item != null) ? this.delete_item.item_name : null }}
+            </b>
+        </h6>
+    </div>
+    <div class="modal-footer">
+        <div class="center">
+            <button class="btn green modal-close" style="margin-right: 4px;">Close</button>
+            <button class="btn red" (click)="deleteItem(this.delete_item.item_id)">Delete</button>
+        </div>
+    </div>
+</div>

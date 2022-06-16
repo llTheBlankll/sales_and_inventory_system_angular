@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
-import { Stock, Supplier, Category } from './entities';
+import { Stock, Supplier, Category, ItemData } from './entities';
 import { LoggerService } from './logger.service';
 
 @Injectable({
@@ -56,5 +56,9 @@ export class RequesterService {
 
   updateStock(data: Stock) {
     return this.httpclient.put<Stock>(this.base_url + "/stocks/add", data=data)
+  }
+
+  deleteItem(id: number) {
+    return this.httpclient.delete(this.base_url + "/stocks/delete/" + id);
   }
 }

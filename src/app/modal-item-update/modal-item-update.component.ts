@@ -1,7 +1,9 @@
-import { Component, Input, NgIterable, OnInit } from '@angular/core';
+import { Component, Host, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Stock, Category, Supplier } from '../entities';
+import { Stock, Category} from '../entities';
 import { RequesterService } from '../requester.service';
+import { StocksComponent } from '../stocks/stocks.component';
+import * as M from "materialize-css";
 
 declare function activateSelectors(): any;
 @Component({
@@ -13,8 +15,7 @@ declare function activateSelectors(): any;
 
 export class ModalItemUpdateComponent implements OnInit {
 
-  constructor(private requester: RequesterService) { 
-    this.item
+  constructor(private requester: RequesterService, @Host() private stock: StocksComponent) { 
   }
 
 
@@ -69,7 +70,9 @@ export class ModalItemUpdateComponent implements OnInit {
 
         this.requester.updateStock(this.item[0]).subscribe({
           next: data => {
-            alert("Update Success!");
+            let close_modal = new M.Modal(document.getElementById("update_item")!);
+            close_modal.close();
+            this.refreshStockTables();
           },
           error: error => {
             console.error(error);
@@ -80,5 +83,9 @@ export class ModalItemUpdateComponent implements OnInit {
         console.error(error);
       }
     });
+  }
+
+  refreshStockTables() {
+    this.stock.refreshStocksTable();
   }
 }
