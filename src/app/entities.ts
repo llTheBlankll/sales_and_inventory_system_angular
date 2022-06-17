@@ -1,5 +1,5 @@
 export interface Stock {
-    id: number;
+    id: number | undefined | null;
     productName: string;
     productDescription: string;
     productUnit: string;

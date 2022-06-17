@@ -1,4 +1,4 @@
-import { Component, Host, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Host, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Stock, Category} from '../../entities';
 import { RequesterService } from '../../requester.service';
@@ -13,7 +13,7 @@ declare function activateSelectors(): any;
 })
 
 
-export class ModalItemUpdateComponent implements OnInit {
+export class ModalItemUpdateComponent implements OnInit, AfterViewInit {
 
   constructor(private requester: RequesterService, @Host() private stock: StocksComponent) { 
   }
@@ -40,14 +40,17 @@ export class ModalItemUpdateComponent implements OnInit {
     this.requester.getCategoryList().subscribe({
       next: data => {
         this.all_categories = data;
-        setTimeout(() => {
-          activateSelectors();
-        }, 3000)
+        // Reload Selectors.
+        activateSelectors();
       },
       error: error => {
         console.error(error);
       }
     });
+  }
+
+  ngAfterViewInit(): void {
+    activateSelectors();
   }
 
   updateItem() {

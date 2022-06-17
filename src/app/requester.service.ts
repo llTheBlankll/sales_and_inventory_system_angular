@@ -55,10 +55,15 @@ export class RequesterService {
   }
 
   updateStock(data: Stock) {
-    return this.httpclient.put<Stock>(this.base_url + "/stocks/add", data=data)
+    return this.httpclient.put<Stock>(this.base_url + "/stocks/add", data)
   }
 
   deleteItem(id: number) {
     return this.httpclient.delete(this.base_url + "/stocks/delete/" + id);
+  }
+
+  addItem(item: Stock) {
+    // Returns string for the message
+    return this.httpclient.put(this.base_url + "/stocks/add", item, {responseType: "text"});
   }
 }

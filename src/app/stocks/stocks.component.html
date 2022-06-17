@@ -88,7 +88,7 @@
                                     <a class="link modal-trigger" data-target="details_item" (click)="setItemDetails(data)">Details</a>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr *ngIf="(this.stockList != undefined) && (this.stockList.length >= 1)">
                                 <td colspan="8">
                                     <a class="link modal-trigger" data-target="add_item">Add new item.</a>
                                 </td>

@@ -1,5 +1,6 @@
 <div id="add_item" class="modal">
     <div class="modal-content">
+        <h5>Add Item</h5>
         <div class="row">
             <div class="col s12">
                 <div class="row">
@@ -41,7 +42,14 @@
                             </select>
                             <label>Product Status</label>
                         </div>
-                        <div class="col s12 m12 l12 input-field">
+                        <div class="col s12 m12 l6 input-field">
+                            <select formControlName="supplier_name">
+                                <option value="" disabled selected>Choose Supplier</option>
+                                <option *ngFor="let supplier of this.all_suppliers" [value]="supplier.supplierName">{{ supplier.supplierName }}</option>
+                            </select>
+                            <label>Supplier</label>
+                        </div>
+                        <div class="col s12 m12 l6 input-field">
                             <label for="product_description">Description</label>
                             <textarea formControlName="productDescription" name="product_description"
                                 id="product_description" cols="30" rows="10" class="materialize-textarea"></textarea>
@@ -52,7 +60,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="modal-close btn red lighten-1 text-white">Close</button>
-        <button class="btn green lighten-1 text-white">Create</button>
+        <button class="modal-close btn red lighten-1 text-white" id="close_modal">Close</button>
+        <button class="btn green lighten-1 text-white" [disabled]="!this.item_form.valid" (click)="addItem()">Create</button>
     </div>
 </div>

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Host, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Category } from 'src/app/entities';
+import { Category, Stock, Supplier } from 'src/app/entities';
 import { RequesterService } from 'src/app/requester.service';
+import { StocksComponent } from '../stocks.component';
+import * as M from "materialize-css";
 
 declare function activateSelectors(): any;
 
@@ -11,9 +13,9 @@ declare function activateSelectors(): any;
   styleUrls: ['./modal-item-add.component.css']
 })
 
-export class ModalItemAddComponent implements OnInit {
+export class ModalItemAddComponent implements OnInit, AfterViewInit {
 
-  constructor(private requester: RequesterService) { }
+  constructor(private requester: RequesterService, @Host() private stock: StocksComponent) { }
 
   item_form: FormGroup = new FormGroup({
       productName: new FormControl("", Validators.required),
@@ -23,23 +25,84 @@ export class ModalItemAddComponent implements OnInit {
       productQuantity: new FormControl("", Validators.required),
       productStatus: new FormControl("", Validators.required),
       category_name: new FormControl("", Validators.required),
+      supplier_name: new FormControl("", Validators.required)
   });
 
-  all_categories!: Category | any;
+  all_categories: Category | any;
+  all_suppliers: Supplier | any;
 
   ngOnInit(): void {
     // Load all Categories
     this.requester.getCategoryList().subscribe({
       next: data => {
         this.all_categories = data;
-        setTimeout(() => {
-          activateSelectors();
-        }, 5000)
       },
       error: error => {
         console.error(error);
       }
-    })
+    });
   }
 
+  ngAfterViewInit(): void {
+    // Load all Suppliers
+    this.requester.getSupplierList().subscribe({
+      next: data => {
+        this.all_suppliers = data;
+      }
+    })
+
+    // Load Selectors
+    setTimeout(() => {
+      activateSelectors();
+    }, 2500);
+  }
+
+  addItem(): void {
+    let item: Stock;
+    
+    // * Get Category by Name.
+    this.requester.getCategoryByName(this.item_form.controls["category_name"].value).subscribe({
+      next: category => {
+        // * Get Supplier by Name.
+        this.requester.getSupplierByName(this.item_form.controls["supplier_name"].value).subscribe({
+          next: supplier => {
+            item = {
+              id: null,
+              productName: this.item_form.controls["productName"].value,
+              productDescription: this.item_form.controls["productDescription"].value,
+              productPrice: this.item_form.controls["productPrice"].value,
+              productQuantity: this.item_form.controls["productQuantity"].value,
+              productStatus: this.item_form.controls["productStatus"].value,
+              productUnit: this.item_form.controls["productUnit"].value,
+              category: category,
+              supplier: supplier,
+              productOtherDetails: null
+            };
+
+            // * Send the data to server.
+            this.requester.addItem(item).subscribe({
+              next: message => {
+                // * Data was Received!
+                $("#close_modal").click();
+                window.alert(message);
+                this.stock.refreshStocksTable();
+              },
+              error: create_error => {
+                // ! Create ERROR!
+                console.error(create_error);
+              }
+            })
+          },
+          error: supplier_error => {
+            // ! Supplier ERROR!
+            console.error(supplier_error);
+          }
+        })
+      },
+      error: category_error => {
+        // ! CATEGORY ERROR!
+        console.error(category_error);
+      }
+    })
+  }
 }
