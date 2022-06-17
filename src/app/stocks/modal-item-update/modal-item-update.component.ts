@@ -1,8 +1,8 @@
 import { Component, Host, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Stock, Category} from '../entities';
-import { RequesterService } from '../requester.service';
-import { StocksComponent } from '../stocks/stocks.component';
+import { Stock, Category} from '../../entities';
+import { RequesterService } from '../../requester.service';
+import { StocksComponent } from '../stocks.component';
 import * as M from "materialize-css";
 
 declare function activateSelectors(): any;
@@ -32,7 +32,6 @@ export class ModalItemUpdateComponent implements OnInit {
       category_name: new FormControl("", Validators.required),
     }
   );
-  item: Stock[] = [];
 
   all_categories: Category | any;
 
@@ -43,7 +42,7 @@ export class ModalItemUpdateComponent implements OnInit {
         this.all_categories = data;
         setTimeout(() => {
           activateSelectors();
-        }, 500)
+        }, 3000)
       },
       error: error => {
         console.error(error);
@@ -52,10 +51,12 @@ export class ModalItemUpdateComponent implements OnInit {
   }
 
   updateItem() {
+    let item: Stock[] = [];
+
     // Get the category.
     this.requester.getCategoryByName(this.item_new_form.controls["category_name"].value).subscribe({
       next: data => {
-        this.item.push({
+        item.push({
           id: this.item_data.id,
           productName: this.item_new_form.controls["productName"].value,
           productDescription: this.item_new_form.controls["productDescription"].value,
@@ -68,7 +69,7 @@ export class ModalItemUpdateComponent implements OnInit {
           supplier: undefined
         })
 
-        this.requester.updateStock(this.item[0]).subscribe({
+        this.requester.updateStock(item[0]).subscribe({
           next: data => {
             let close_modal = new M.Modal(document.getElementById("update_item")!);
             close_modal.close();

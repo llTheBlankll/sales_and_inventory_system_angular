@@ -1,8 +1,8 @@
 import { Component, Host, Input, OnInit } from '@angular/core';
-import { ItemData } from '../entities';
+import { ItemData } from '../../entities';
 import * as M from "materialize-css";
-import { RequesterService } from '../requester.service';
-import { StocksComponent } from '../stocks/stocks.component';
+import { RequesterService } from '../../requester.service';
+import { StocksComponent } from '../stocks.component';
 
 @Component({
   selector: 'app-modal-item-delete',

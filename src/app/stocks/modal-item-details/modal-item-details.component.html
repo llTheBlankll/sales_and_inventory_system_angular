@@ -7,33 +7,33 @@
                     <div class="col s12 m12 l6">
                         <label for="product_name">Name</label>
                         <input type="text" name="product_name"
-                            class="validate" [value]="this.item_details.productName" disabled>
+                            class="validate" [value]="(this.item_details != undefined) ? this.item_details.productName : 'No Item Selected'" disabled>
                     </div>
                     <div class="col s12 m12 l6">
                         <label for="product_unit">Unit</label>
                         <input type="text" name="product_unit"
-                            class="validate" [value]="this.item_details.productUnit" disabled>
+                            class="validate" [value]="(this.item_details != undefined) ? this.item_details.productUnit : 'No Item Selected'" disabled>
                     </div>
                     <div class="col s12 m12 l6">
                         <label for="product_price">Price</label>
                         <input type="text" name="product_price"
-                            class="validate" [value]="this.item_details.productPrice" disabled>
+                            class="validate" [value]="(this.item_details != undefined) ? this.item_details.productPrice : 'No Item Selected'" disabled>
                     </div>
                     <div class="col s12 m12 l6">
                         <label for="product_quantity">Quantity</label>
-                        <input type="text" name="product_quantity" class="validate" [value]="this.item_details.productQuantity" disabled>
+                        <input type="text" name="product_quantity" class="validate" [value]="(this.item_details != undefined) ? this.item_details.productQuantity : 'No Item Selected'" disabled>
                     </div>
                     <div class="col s12 m12 l6">
                         <label for="product_category">Product Category</label>
-                        <input type="text" name="product_category" class="validate" [value]="this.item_details.category.categoryName" disabled>
+                        <input type="text" name="product_category" class="validate" [value]="(this.item_details != undefined) ? this.item_details.category.categoryName : 'No Item Selected'" disabled>
                     </div>
                     <div class="col s12 m12 l6">
                         <label for="product_status">Product Status</label>
-                        <input type="text" name="product_status" class="validate" [value]="this.item_details.productStatus" disabled>
+                        <input type="text" name="product_status" class="validate" [value]="(this.item_details != undefined) ? this.item_details.productStatus : 'No Item Selected'" disabled>
                     </div>
                     <div class="col s12 m12 l12">
                         <label for="product_description">Description</label>
-                        <textarea name="product_description" cols="30" rows="10" [value]="this.item_details.productDescription" class="materialize-textarea" disabled></textarea>
+                        <textarea name="product_description" cols="30" rows="10" [value]="(this.item_details != undefined) ? this.item_details.productDescription : 'No Item Selected'" class="materialize-textarea" disabled></textarea>
                     </div>
                 </div>
             </div>

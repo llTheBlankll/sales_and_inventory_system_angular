@@ -1,7 +1,11 @@
 <app-topnav></app-topnav>
+
+<!-- Initialize Modals -->
 <app-modal-item-update [item_data]="this.item_form"></app-modal-item-update>
 <app-modal-item-delete [delete_item]="this.delete_item"></app-modal-item-delete>
 <app-modal-item-details [item_details]="this.item_details"></app-modal-item-details>
+<app-modal-item-add></app-modal-item-add>
+
 <div class="container">
     <div class="row">
         <div class="col s12 m12 l3">
@@ -59,7 +63,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngIf="this.stockList.length <= 0">
+                            <tr *ngIf="(this.stockList != undefined) && (this.stockList.length <= 0)">
                                 <td colspan="8">
                                     No Items Available
                                     <br>
@@ -82,6 +86,11 @@
                                     <a class="link modal-trigger" id="delete_item" data-target="delete_item" (click)="setDeleteData(data.id, data.productName)">Delete</a>
                                     |
                                     <a class="link modal-trigger" data-target="details_item" (click)="setItemDetails(data)">Details</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="8">
+                                    <a class="link modal-trigger" data-target="add_item">Add new item.</a>
                                 </td>
                             </tr>
                         </tbody>

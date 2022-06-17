@@ -25,7 +25,7 @@ export class TopnavComponent implements OnInit {
   links: Link[] = [
     {
       href: "/dashboard",
-      text: "Home",
+      text: "Home"
     },
     {
       href: "/dashboard/stocks",
@@ -40,6 +40,10 @@ export class TopnavComponent implements OnInit {
   // example: 'dashboard'
   current_url: string = "";
 
+  NumberLocaleString(value: number) {
+    return Number(value).toLocaleString();
+  }
+
   ngOnInit(): void {
     // Current URL.
     this.router.snapshot.url.map(url => {
@@ -48,10 +52,6 @@ export class TopnavComponent implements OnInit {
 
     // For debugging, to know where you are.
     this.logger.Log(this.current_url);
-
-    // Initialize Dropdowns and Datepicker if there is one.
-    refreshDatePicker();
-    activateDropdowns();
   }
 
 }

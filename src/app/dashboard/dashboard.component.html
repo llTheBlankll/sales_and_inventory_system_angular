@@ -6,7 +6,7 @@
             <div class="card red lighten-2 white-text">
                 <div class="card-content">
                     <span class="card-title">Total Items Price in the Inventory</span>
-                    <h4>₱{{ inventory_value }}</h4>
+                    <h4>₱{{ (this.inventory_value != undefined) ? this.inventory_value : 0 }}</h4>
                 </div>
             </div>
         </div>
@@ -15,7 +15,7 @@
                 <div class="card-content">
                     <div class="card-title">
                         <span>Low on Stocks Items</span>
-                        <h4>{{ (this.low_stocks != null) ? this.low_stocks.length : 0 }} Items</h4>
+                        <h4>{{ (this.low_stocks != undefined) ? this.low_stocks.length : 0 }} Items</h4>
                     </div>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                 <div class="card-content">
                     <div class="card-title">
                         <span>No Stocks Items</span>
-                        <h4>{{ (this.no_stocks != null) ? this.no_stocks.length : 0 }} Items</h4>
+                        <h4>{{ (this.no_stocks != undefined) ? this.no_stocks.length : 0 }} Items</h4>
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
     </div>
     <div class="row">
         <div class="col s12 m12 l8">
-            <!-- SALES -->
+            <!-- SALES
             <div class="divider"></div>
             <div class="section">
                 <h5>Sales</h5>
@@ -44,6 +44,7 @@
                     [options]="this.lineChartOption"
                 ></canvas>
             </div>
+             -->
         </div>
         <!-- STOCKS -->
         <div class="col s12 m12 l4">
@@ -59,7 +60,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                      <tr *ngIf="this.low_stocks.length <= 0" class="green lighten-2 white-text">
+                      <tr *ngIf="(this.low_stocks != undefined) && (this.low_stocks.length <= 0)" class="green lighten-2 white-text">
                         <td colspan="3">All is well. Nothing is out or low on stock</td>
                       </tr>
                         <tr *ngFor="let item of this.low_stocks">
@@ -71,7 +72,8 @@
                 </table>
             </div>
         </div>
-        <!-- RECENT TRANSACTION -->
+        <!-- 
+            RECENT TRANSACTION 
         <div class="col s12 m12 l8">
             <div class="divider"></div>
             <div class="section">
@@ -98,5 +100,6 @@
                 </table>
             </div>
         </div>
+    -->
     </div>
 </div>

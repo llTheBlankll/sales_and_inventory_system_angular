@@ -11,9 +11,10 @@ import { StocksComponent } from './stocks/stocks.component';
 import { NgChartsModule } from 'ng2-charts';
 import { SuppliersComponent } from './suppliers/suppliers.component';
 import { HttpClientModule } from "@angular/common/http";
-import { ModalItemUpdateComponent } from './modal-item-update/modal-item-update.component';
-import { ModalItemDeleteComponent } from './modal-item-delete/modal-item-delete.component';
-import { ModalItemDetailsComponent } from './modal-item-details/modal-item-details.component';
+import { ModalItemDeleteComponent } from './stocks/modal-item-delete/modal-item-delete.component';
+import { ModalItemDetailsComponent } from './stocks/modal-item-details/modal-item-details.component';
+import { ModalItemUpdateComponent } from './stocks/modal-item-update/modal-item-update.component';
+import { ModalItemAddComponent } from './stocks/modal-item-add/modal-item-add.component';
 
 
 @NgModule({
@@ -24,9 +25,10 @@ import { ModalItemDetailsComponent } from './modal-item-details/modal-item-detai
     DashboardComponent,
     StocksComponent,
     SuppliersComponent,
-    ModalItemUpdateComponent,
     ModalItemDeleteComponent,
     ModalItemDetailsComponent,
+    ModalItemUpdateComponent,
+    ModalItemAddComponent
   ],
   imports: [
     BrowserModule,
