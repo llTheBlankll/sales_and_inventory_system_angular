@@ -30,6 +30,9 @@ export class StocksComponent implements OnInit {
   // Item to be deleted
   delete_item: ItemData | any;
 
+  // Item Details to be sent to Item Details Component (Child)
+  item_details!: Stock;
+
   constructor(private requester: RequesterService) {
   }
 
@@ -81,24 +84,14 @@ export class StocksComponent implements OnInit {
     };
   }
 
-  setUpdateForm(id: number, name: string, description: string,
-     unit: string, price: number, quantity: number,
-      category: Category, status: string, other_details: string, 
-      supplier: Supplier) {
+  setUpdateForm(stock: Stock) {
 
     // Send the data to the update modal (Child)
-    this.item_form = {
-      id: id,
-      productName: name,
-      productDescription: description,
-      productUnit: unit,
-      productPrice: price,
-      productQuantity: quantity,
-      productStatus: status,
-      category: category,
-      productOtherDetails: other_details,
-      supplier: supplier
-    };
+    this.item_form = stock;
+  }
+
+  setItemDetails(stock: Stock) {
+    this.item_details = stock;
   }
 
   refreshStocksTable() {

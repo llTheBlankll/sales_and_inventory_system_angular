@@ -1,1 +1,46 @@
-<p>modal-item-details works!</p>
+<div id="details_item" class="modal">
+    <div class="modal-content">
+        <h5>Item Details of <b>{{ (this.item_details != undefined) ? this.item_details.productName : "No Item Selected." }}</b></h5>
+        <div class="row">
+            <div class="col s12">
+                <div class="row">
+                    <div class="col s12 m12 l6">
+                        <label for="product_name">Name</label>
+                        <input type="text" name="product_name"
+                            class="validate" [value]="this.item_details.productName" disabled>
+                    </div>
+                    <div class="col s12 m12 l6">
+                        <label for="product_unit">Unit</label>
+                        <input type="text" name="product_unit"
+                            class="validate" [value]="this.item_details.productUnit" disabled>
+                    </div>
+                    <div class="col s12 m12 l6">
+                        <label for="product_price">Price</label>
+                        <input type="text" name="product_price"
+                            class="validate" [value]="this.item_details.productPrice" disabled>
+                    </div>
+                    <div class="col s12 m12 l6">
+                        <label for="product_quantity">Quantity</label>
+                        <input type="text" name="product_quantity" class="validate" [value]="this.item_details.productQuantity" disabled>
+                    </div>
+                    <div class="col s12 m12 l6">
+                        <label for="product_category">Product Category</label>
+                        <input type="text" name="product_category" class="validate" [value]="this.item_details.category.categoryName" disabled>
+                    </div>
+                    <div class="col s12 m12 l6">
+                        <label for="product_status">Product Status</label>
+                        <input type="text" name="product_status" class="validate" [value]="this.item_details.productStatus" disabled>
+                    </div>
+                    <div class="col s12 m12 l12">
+                        <label for="product_description">Description</label>
+                        <textarea name="product_description" cols="30" rows="10" [value]="this.item_details.productDescription" class="materialize-textarea" disabled></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn red modal-close">Close</button>
+        <button data-target="delete_item" class="btn blue lighten-2">Update?</button>
+    </div>
+</div>

@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit {
   // On Startup dashboard display data.
   inventory_value: string | undefined;
   low_stocks: Stock | any;
+  no_stocks: Stock | any;
 
 
   constructor(private requester: RequesterService) { }
@@ -38,7 +39,7 @@ export class DashboardComponent implements OnInit {
       legend: { display: true },
       title: {
         display: true,
-        text: "Total Sales This Week."
+        text: "Active Products"
       }
     },
     responsive: true,

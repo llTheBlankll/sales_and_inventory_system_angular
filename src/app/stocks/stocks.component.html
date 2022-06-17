@@ -1,6 +1,7 @@
 <app-topnav></app-topnav>
 <app-modal-item-update [item_data]="this.item_form"></app-modal-item-update>
 <app-modal-item-delete [delete_item]="this.delete_item"></app-modal-item-delete>
+<app-modal-item-details [item_details]="this.item_details"></app-modal-item-details>
 <div class="container">
     <div class="row">
         <div class="col s12 m12 l3">
@@ -59,7 +60,11 @@
                         </thead>
                         <tbody>
                             <tr *ngIf="this.stockList.length <= 0">
-                                <td colspan="8">No Items Available</td>
+                                <td colspan="8">
+                                    No Items Available
+                                    <br>
+                                    <a class="link modal-trigger" data-target="add_item">Add item</a>
+                                </td>
                             </tr>
                             <tr *ngFor="let data of this.stockList">
                                 <td>{{ data.productName }}</td>
@@ -72,11 +77,11 @@
                                 <td>{{ data.category.categoryName }}</td>
                                 <td>{{ data.productStatus }}</td>
                                 <td>
-                                    <a class="link modal-trigger" data-target="update_item" (click)="setUpdateForm(data.id, data.productName, data.productDescription, data.productUnit, data.productPrice, data.productQuantity, data.category, data.productStatus, data.productOtherDetails, data.supplier)">Update</a>
+                                    <a class="link modal-trigger" data-target="update_item" (click)="setUpdateForm(data)">Update</a>
                                     |
                                     <a class="link modal-trigger" id="delete_item" data-target="delete_item" (click)="setDeleteData(data.id, data.productName)">Delete</a>
                                     |
-                                    <a class="link modal-trigger" data-target="details_item">Details</a>
+                                    <a class="link modal-trigger" data-target="details_item" (click)="setItemDetails(data)">Details</a>
                                 </td>
                             </tr>
                         </tbody>
