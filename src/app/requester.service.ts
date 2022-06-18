@@ -66,4 +66,9 @@ export class RequesterService {
     // Returns string for the message
     return this.httpclient.put(this.base_url + "/stocks/add", item, {responseType: "text"});
   }
+
+  deleteSupplier(supplier: Supplier) {
+    // Return the message with a type of string.
+    return this.httpclient.delete(this.base_url + "/suppliers/delete", { responseType: "text", body: supplier });
+  }
 }

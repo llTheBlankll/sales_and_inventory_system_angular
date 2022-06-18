@@ -92,6 +92,9 @@
                                 <td colspan="8">
                                     <a class="link modal-trigger" data-target="add_item">Add new item.</a>
                                 </td>
+                                <td colspan="8" *ngIf="this.stockList == undefined">
+                                    <h6>Loading...</h6>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

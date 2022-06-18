@@ -10,6 +10,7 @@
 .link {
     color: #E91E63;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .link:hover {

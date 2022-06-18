@@ -83,7 +83,7 @@ export class ModalItemAddComponent implements OnInit, AfterViewInit {
             this.requester.addItem(item).subscribe({
               next: message => {
                 // * Data was Received!
-                $("#close_modal").click();
+                this.close_modal();
                 window.alert(message);
                 this.stock.refreshStocksTable();
               },
@@ -105,4 +105,9 @@ export class ModalItemAddComponent implements OnInit, AfterViewInit {
       }
     })
   }
+
+  close_modal(): void {
+    $("#close_modal").click();
+  }
 }
+

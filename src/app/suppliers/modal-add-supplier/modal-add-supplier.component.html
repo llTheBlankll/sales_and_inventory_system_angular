@@ -1,0 +1,43 @@
+<div id="add_supplier" class="modal">
+    <div class="modal-content">
+        <h5>Adding Supplier</h5>
+        <div class="row">
+            <div class="col s12">
+                <div class="row">
+                    <form [formGroup]="this.supplier_form">
+                        <div class="col s12 m12 l6 input-field">
+                            <input type="text" formControlName="name" id="supplier_name">
+                            <label for="supplier_name">Supplier Name</label>
+                        </div>
+                        <div class="col s12 m12 l6 input-field">
+                            <input type="text" formControlName="address" id="supplier_address">
+                            <label for="supplier_address">Supplier Address</label>
+                        </div>
+                        <div class="col s12 m12 l6 input-field">
+                            <input type="text" formControlName="phone" id="supplier_phone">
+                            <label for="supplier_phone">Supplier Phone</label>
+                        </div>
+                        <div class="col s12 m12 l6 input-field">
+                            <input type="text" formControlName="fax" id="supplier_fax">
+                            <label for="supplier_fax">Supplier Fax</label>
+                        </div>
+                        <div class="col s12 m12 l6 input-field">
+                            <input type="text" formControlName="email" id="supplier_email">
+                            <label for="supplier_email">Supplier Name</label>
+                        </div>
+                        <div class="col s12 m12 l6 input-field">
+                            <input type="text" formControlName="other_details" id="other_details">
+                            <label for="other_details">Other Details</label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn red lighten-2 modal-close" style="margin-right: 4px">
+            Close
+        </button>
+        <button class="btn green lighten-2">Add Supplier</button>
+    </div>
+</div>

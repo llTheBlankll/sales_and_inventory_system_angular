@@ -1,9 +1,15 @@
 <app-topnav></app-topnav>
+<!--
+    Suppliers Modal
+    <app-modal-update-supplier [supplier_data]=""></app-modal-update-supplier>
+-->
+<app-modal-delete-supplier [supplier_data]="this.supplierData"></app-modal-delete-supplier>
+<app-modal-add-supplier></app-modal-add-supplier>
 <div class="container">
     <div class="card">
         <div class="card-content">
             <h5 class="card-title center" style="font-size: 2vw;">Suppliers</h5>
-            <a>Add new Supplier</a>
+            <a data-target="add_supplier" class="modal-trigger" style="cursor: pointer;">Add new Supplier</a>
             <table class="responsive-table centered">
                 <thead>
                     <tr>
@@ -23,9 +29,9 @@
                         <td>{{ (supplier.supplierFax == null) ? "Unspecified" : supplier.supplierFax }}</td>
                         <td>{{ supplier.supplierEmail }}</td>
                         <td>
-                            <a class="link">Update</a>
+                            <a class="link" data-target="update_supplier" (click)="setSupplierData(supplier)">Update</a>
                             |
-                            <a class="link">Delete</a>
+                            <a class="link modal-trigger" data-target="delete_supplier" (click)="setSupplierData(supplier)">Delete</a>
                         </td>
                     </tr>
                 </tbody>

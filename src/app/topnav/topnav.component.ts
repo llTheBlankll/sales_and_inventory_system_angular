@@ -7,9 +7,6 @@ interface Link {
   text: string
 }
 
-declare function refreshDatePicker(): any;
-declare function activateDropdowns(): any;
-
 @Component({
   selector: 'app-topnav',
   templateUrl: './topnav.component.html',
