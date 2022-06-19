@@ -16,14 +16,18 @@ export class StocksComponent implements OnInit {
 
   item_placeholder: string = "";
   stockList!: Stock | any;
+  // This variable is used for how 'many' items is below the quantity of (The configuration of the rest api (default: 10))
   low_stocks: Stock | any;
+  // Stocks that has the quantity of 0
   no_stocks: Stock | any;
 
   // Item to be updated variables.
+  // These three variables are used for updating the item at Update Modal (modal-item-update component)
   updating_item_id: number = 0;
   updating_item_name: string = "";
   item_form!: Stock;
 
+  // Search form is the form above the <table>.
   search_form: FormGroup = new FormGroup({
     search_name: new FormControl("", Validators.required)
   });
@@ -35,6 +39,7 @@ export class StocksComponent implements OnInit {
   item_details!: Stock;
 
   // * Pagination numbers
+  // Pagination is below the <table>.
   stock_paginations: any;
   current_page: number = 0;
 
@@ -66,6 +71,7 @@ export class StocksComponent implements OnInit {
     // Get No Stock List.
     this.requester.getNoStockItems().subscribe({
       next: data => {
+        // Assign the data received from the server to the variable no_stocks.
         this.no_stocks = data;
       },
       error: error => {
@@ -126,7 +132,10 @@ export class StocksComponent implements OnInit {
           // Page 1 starts at 0
           this.requester.stockPagination(pageNum).subscribe({
             next: data => {
-              let re = /\[|\]/gi;
+              // The data that was received was a string ("[0,1,2]"),
+              let re = /\[|\]/gi; 
+              // this is not actually an Array so we will remove the brackets ('[]')
+              // and make it a list by splitting it with a delimiter of ",";
               if (data.replace(re, "").split(",").length >= 1) {
                 this.stock_paginations = data.replace(re, "").split(",");
                 this.current_page = pageNum;
@@ -146,6 +155,8 @@ export class StocksComponent implements OnInit {
     });
   }
 
+  // A function that will obtain the latest updated data
+  // from the API Server
   refreshStocksTable() {
     // Get Stock List.
     this.requester.getStockList().subscribe({
@@ -158,13 +169,16 @@ export class StocksComponent implements OnInit {
     });
   }
 
-  // Since the getting the starting value at first page is zero (0) in the rest api,
-  // we can't say that the page is starting at 0 so we add 1 to the page num that displays in the pagination.
-  // without this function the pagination below the table would be
-  // * < 0 1 2 >
-  // We need to remove that 0 and make it 1, so I added this used this function.
-  // Now it is,
-  // * < 1 2 3 >, More better.
+  /*
+  we can't say that the page is starting at 0 so we add 1 to the page num that displays in the pagination. 
+  without this function the pagination below the table would be
+  * < 0 1 2 >
+  We need to remove that 0 and make it 1, so I added this used this function.
+  Now it is,
+  * < 1 2 3 >, More better, but the value of that pagination to the backend is
+  actually < 0 1 2 > because the page one starts at 0.
+  Since the getting the starting value at first page is zero (0) in the rest api,
+  */
   paginationIllusion(pageNum: string) {
     return parseInt(pageNum) + 1;
   }

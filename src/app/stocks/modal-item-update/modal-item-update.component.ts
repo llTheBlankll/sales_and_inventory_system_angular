@@ -19,8 +19,11 @@ export class ModalItemUpdateComponent implements OnInit, AfterViewInit {
   }
 
 
+  // Data provided by parent component of what item to update.
   @Input()
   item_data!: Stock;
+
+  // The form in front of the modal (You can totally see it.)
   item_new_form: FormGroup = new FormGroup(
     {
       productName: new FormControl("", Validators.required),
@@ -50,15 +53,18 @@ export class ModalItemUpdateComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    // Load all <selector> tags.
     activateSelectors();
   }
 
   updateItem() {
+    // We will use this variable for sending the data to the API server.
     let item: Stock[] = [];
 
     // Get the category.
     this.requester.getCategoryByName(this.item_new_form.controls["category_name"].value).subscribe({
       next: data => {
+        // Assign the data collected from user and convert it into Stocks interface that can be used for updating the data.
         item.push({
           id: this.item_data.id,
           productName: this.item_new_form.controls["productName"].value,
@@ -72,9 +78,17 @@ export class ModalItemUpdateComponent implements OnInit, AfterViewInit {
           supplier: undefined
         })
 
+        // Request the data to be updated.
         this.requester.updateStock(item[0]).subscribe({
+          // If success, Close the modal.
           next: data => {
+            // Current modal instance which is Update Modal.
             let close_modal = new M.Modal(document.getElementById("update_item")!);
+
+            // Reset the form to blank.
+            this.item_new_form.reset();
+
+            // Close the modal and refresh t he parent table.
             close_modal.close();
             this.refreshStockTables();
           },
@@ -89,6 +103,7 @@ export class ModalItemUpdateComponent implements OnInit, AfterViewInit {
     });
   }
 
+  // Refresh the Stocks Table to the Parent Component (StocksComponent)
   refreshStockTables() {
     this.stock.refreshStocksTable();
   }

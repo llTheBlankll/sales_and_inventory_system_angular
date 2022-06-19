@@ -11,6 +11,7 @@ export class ModalItemDetailsComponent implements OnInit {
   constructor() {
   }
 
+  // Get the data provided by Parent Component which is StockComponent.
   @Input()
   item_details!: Stock;
 

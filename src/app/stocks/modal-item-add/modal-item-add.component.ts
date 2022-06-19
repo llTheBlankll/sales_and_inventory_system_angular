@@ -17,6 +17,7 @@ export class ModalItemAddComponent implements OnInit, AfterViewInit {
 
   constructor(private requester: RequesterService, @Host() private stock: StocksComponent) { }
 
+  // The form in front of the modal, you can totally see it.
   item_form: FormGroup = new FormGroup({
       productName: new FormControl("", Validators.required),
       productDescription: new FormControl("", Validators.required),
@@ -28,6 +29,7 @@ export class ModalItemAddComponent implements OnInit, AfterViewInit {
       supplier_name: new FormControl("", Validators.required)
   });
 
+  // These two variables are for <selector> tags as they are used for <option> tag.
   all_categories: Category | any;
   all_suppliers: Supplier | any;
 
@@ -52,6 +54,8 @@ export class ModalItemAddComponent implements OnInit, AfterViewInit {
     })
 
     // Load Selectors
+    // There is a delay because if the <selector> was loaded before the two variables
+    // then it won't display anything.
     setTimeout(() => {
       activateSelectors();
     }, 2500);
@@ -79,33 +83,33 @@ export class ModalItemAddComponent implements OnInit, AfterViewInit {
               productOtherDetails: null
             };
 
-            // * Send the data to server.
+            // Send the data to server.
             this.requester.addItem(item).subscribe({
               next: message => {
-                // * Data was Received!
+                // Data was Received!
+                // Close the modal and send an alert to the user of the result
+                // and also refresh the table of the StockComponent.
                 this.close_modal();
                 window.alert(message);
                 this.stock.refreshStocksTable();
               },
               error: create_error => {
-                // ! Create ERROR!
                 console.error(create_error);
               }
             })
           },
           error: supplier_error => {
-            // ! Supplier ERROR!
             console.error(supplier_error);
           }
         })
       },
       error: category_error => {
-        // ! CATEGORY ERROR!
         console.error(category_error);
       }
     })
   }
 
+  // Close this modal.
   close_modal(): void {
     $("#close_modal").click();
   }
