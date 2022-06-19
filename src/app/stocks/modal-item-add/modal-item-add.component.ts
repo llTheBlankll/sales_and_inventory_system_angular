@@ -53,9 +53,11 @@ export class ModalItemAddComponent implements OnInit, AfterViewInit {
       }
     })
 
-    // Load Selectors
-    // There is a delay because if the <selector> was loaded before the two variables
-    // then it won't display anything.
+    /*
+    Load Selectors
+    There is a delay because if the <selector> was loaded before the two variables
+    then it won't display anything.
+    */
     setTimeout(() => {
       activateSelectors();
     }, 2500);
@@ -86,9 +88,11 @@ export class ModalItemAddComponent implements OnInit, AfterViewInit {
             // Send the data to server.
             this.requester.addItem(item).subscribe({
               next: message => {
-                // Data was Received!
-                // Close the modal and send an alert to the user of the result
-                // and also refresh the table of the StockComponent.
+                /*
+                Data was Received!
+                Close the modal and send an alert to the user of the result
+                and also refresh the table of the StockComponent.
+                */
                 this.close_modal();
                 window.alert(message);
                 this.stock.refreshStocksTable();

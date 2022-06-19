@@ -21,8 +21,10 @@ export class StocksComponent implements OnInit {
   // Stocks that has the quantity of 0
   no_stocks: Stock | any;
 
-  // Item to be updated variables.
-  // These three variables are used for updating the item at Update Modal (modal-item-update component)
+  /* 
+  Item to be updated variables.
+  These three variables are used for updating the item at Update Modal (modal-item-update component)
+  */
   updating_item_id: number = 0;
   updating_item_name: string = "";
   item_form!: Stock;
@@ -47,8 +49,10 @@ export class StocksComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Get Stock List Page 1.
-    // NOTE: Page 1 starts at 0.
+    /*
+    Get Stock List Page 1.
+    NOTE: Page 1 starts at 0.
+    */
     this.requester.getStockListInPage(0).subscribe({
       next: data => {
         this.stockList = data;
@@ -120,22 +124,28 @@ export class StocksComponent implements OnInit {
   }
 
   getStockPage(pageNum: number) {
-    // Get Stock List Page 1.
-    // NOTE: Page 1 starts at 0.
+    /* 
+    Get Stock List Page 1.
+    NOTE: Page 1 starts at 0.
+     */
     this.requester.getStockListInPage(pageNum).subscribe({
       next: data => {
         if (data.content.length > 0) {
           this.stockList = data;
 
-          // Refresh the pagination below the table.
-          // Load Pagination numbering
-          // Page 1 starts at 0
+          /*
+          Page 1 starts at 0
+          Refresh the pagination below the table.
+          Load Pagination numbering
+          */
           this.requester.stockPagination(pageNum).subscribe({
             next: data => {
               // The data that was received was a string ("[0,1,2]"),
-              let re = /\[|\]/gi; 
-              // this is not actually an Array so we will remove the brackets ('[]')
-              // and make it a list by splitting it with a delimiter of ",";
+              let re = /\[|\]/gi;
+              /*
+              and make it a list by splitting it with a delimiter of ",";
+              this is not actually an Array so we will remove the brackets ('[]')
+              */
               if (data.replace(re, "").split(",").length >= 1) {
                 this.stock_paginations = data.replace(re, "").split(",");
                 this.current_page = pageNum;
