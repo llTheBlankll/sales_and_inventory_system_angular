@@ -18,6 +18,7 @@ import { ModalItemAddComponent } from './stocks/modal-item-add/modal-item-add.co
 import { ModalDeleteSupplierComponent } from './suppliers/modal-delete-supplier/modal-delete-supplier.component';
 import { ModalUpdateSupplierComponent } from './suppliers/modal-update-supplier/modal-update-supplier.component';
 import { ModalAddSupplierComponent } from './suppliers/modal-add-supplier/modal-add-supplier.component';
+import { CategoriesComponent } from './categories/categories.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { ModalAddSupplierComponent } from './suppliers/modal-add-supplier/modal-
     ModalItemAddComponent,
     ModalDeleteSupplierComponent,
     ModalUpdateSupplierComponent,
-    ModalAddSupplierComponent
+    ModalAddSupplierComponent,
+    CategoriesComponent
   ],
   imports: [
     BrowserModule,

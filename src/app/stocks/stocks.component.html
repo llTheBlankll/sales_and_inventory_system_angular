@@ -63,14 +63,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngIf="(this.stockList != undefined) && (this.stockList.length <= 0)">
+                            <tr *ngIf="(this.stockList != undefined) && (this.stockList.content.length <= 0)">
                                 <td colspan="8">
                                     No Items Available
                                     <br>
                                     <a class="link modal-trigger" data-target="add_item">Add item</a>
                                 </td>
                             </tr>
-                            <tr *ngFor="let data of this.stockList">
+                            <tr *ngFor="let data of this.stockList.content">
                                 <td>{{ data.productName }}</td>
                                 <td style="word-wrap: break-word">
                                     {{ data.productDescription }}
@@ -81,14 +81,17 @@
                                 <td>{{ data.category.categoryName }}</td>
                                 <td>{{ data.productStatus }}</td>
                                 <td>
-                                    <a class="link modal-trigger" data-target="update_item" (click)="setUpdateForm(data)">Update</a>
+                                    <a class="link modal-trigger" data-target="update_item"
+                                        (click)="setUpdateForm(data)">Update</a>
                                     |
-                                    <a class="link modal-trigger" id="delete_item" data-target="delete_item" (click)="setDeleteData(data.id, data.productName)">Delete</a>
+                                    <a class="link modal-trigger" id="delete_item" data-target="delete_item"
+                                        (click)="setDeleteData(data.id, data.productName)">Delete</a>
                                     |
-                                    <a class="link modal-trigger" data-target="details_item" (click)="setItemDetails(data)">Details</a>
+                                    <a class="link modal-trigger" data-target="details_item"
+                                        (click)="setItemDetails(data)">Details</a>
                                 </td>
                             </tr>
-                            <tr *ngIf="(this.stockList != undefined) && (this.stockList.length >= 1)">
+                            <tr *ngIf="(this.stockList != undefined) && (this.stockList.content.length >= 1)">
                                 <td colspan="8">
                                     <a class="link modal-trigger" data-target="add_item">Add new item.</a>
                                 </td>
@@ -98,6 +101,14 @@
                             </tr>
                         </tbody>
                     </table>
+
+                    <ul class="pagination center">
+                        <li><a (click)="(this.current_page - 1 >= 0) ? getStockPage(this.current_page - 1) : 0"><i class="material-icons">chevron_left</i></a></li>
+                        <li>
+                            <a *ngFor="let pageNum of this.stock_paginations" [ngClass]="{'link': this.current_page == pageNum}" (click)="getStockPage(pageNum)">{{ (pageNum != undefined) ? paginationIllusion(pageNum) : 1 }}</a>
+                        </li>
+                        <li><a (click)="getStockPage(this.current_page + 1)"><i class="material-icons">chevron_right</i></a></li>
+                    </ul>
                 </div>
             </div>
         </div>

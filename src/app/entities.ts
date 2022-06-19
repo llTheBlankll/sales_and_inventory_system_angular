@@ -6,22 +6,26 @@ export interface Stock {
     productPrice: number;
     productQuantity: number;
     productStatus: string;
-    category: {
-        categoryId: number;
-        categoryName: string;
-        categoryDescription: string;
-    };
-    supplier:
-        | {
-              id: number;
-              supplierName: string;
-              supplierPhone: string;
-              supplierFax: string;
-              supplierEmail: string;
-              supplierOtherDetails: string;
-          }
-        | undefined;
+    category: Category;
+    supplier: Supplier | undefined;
     productOtherDetails: string | null;
+}
+
+export interface StockWithPagination {
+    content: [
+        {
+            id: number | undefined | null;
+            productName: string;
+            productDescription: string;
+            productUnit: string;
+            productPrice: number;
+            productQuantity: number;
+            productStatus: string;
+            category: Category;
+            supplier: Supplier | undefined;
+            productOtherDetails: string | null;
+        }
+    ],
 }
 
 export interface Category {
@@ -31,7 +35,7 @@ export interface Category {
 }
 
 export interface Supplier {
-    id: number;
+    id: number | undefined;
     supplierName: string;
     supplierAddress: string;
     supplierPhone: string;

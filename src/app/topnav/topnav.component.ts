@@ -7,6 +7,8 @@ interface Link {
   text: string
 }
 
+declare function activateDropdowns(): any;
+
 @Component({
   selector: 'app-topnav',
   templateUrl: './topnav.component.html',
@@ -42,6 +44,9 @@ export class TopnavComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Activate Links Dropdowns
+    activateDropdowns();
+
     // Current URL.
     this.router.snapshot.url.map(url => {
       this.current_url = url.path;
