@@ -23,11 +23,11 @@ export class StocksComponent implements OnInit {
   updating_item_id: number = 0;
   updating_item_name: string = "";
   item_form!: Stock;
-  
+
   search_form: FormGroup = new FormGroup({
     search_name: new FormControl("", Validators.required)
   });
-  
+
   // Item to be deleted
   delete_item: ItemData | any;
 
@@ -64,7 +64,7 @@ export class StocksComponent implements OnInit {
     });
 
     // Get No Stock List.
-    this.requester.getNoStockItems().subscribe({ 
+    this.requester.getNoStockItems().subscribe({
       next: data => {
         this.no_stocks = data;
       },
@@ -89,10 +89,10 @@ export class StocksComponent implements OnInit {
     activateModals();
   }
 
-  
+
   // * This will get called when the user pressed Search button.
   searchSubmit() {
-    console.log(typeof(this.stock_paginations));
+    console.log(typeof (this.stock_paginations));
     console.log(this.stock_paginations);
   }
 
@@ -118,23 +118,27 @@ export class StocksComponent implements OnInit {
     // NOTE: Page 1 starts at 0.
     this.requester.getStockListInPage(pageNum).subscribe({
       next: data => {
-        this.stockList = data;
-      },
-      error: error => {
-        console.error(error);
-      }
-    });
+        if (data.content.length > 0) {
+          this.stockList = data;
 
-    // Refresh the pagination below the table.
-    // Load Pagination numbering
-    // Page 1 starts at 0
-    this.requester.stockPagination(pageNum).subscribe({
-      next: data => {
-        let re = /\[|\]/gi;
-        this.stock_paginations = data.replace(re, "").split(",");
-        // * Set the current page to 'pageNum';
-        console.log(this.stock_paginations + " = " + this.current_page);
-        this.current_page = pageNum;
+          // Refresh the pagination below the table.
+          // Load Pagination numbering
+          // Page 1 starts at 0
+          this.requester.stockPagination(pageNum).subscribe({
+            next: data => {
+              let re = /\[|\]/gi;
+              if (data.replace(re, "").split(",").length >= 1) {
+                this.stock_paginations = data.replace(re, "").split(",");
+                this.current_page = pageNum;
+              }
+              // * Set the current page to 'pageNum';
+              console.log(this.stock_paginations + " = " + this.current_page);
+            },
+            error: error => {
+              console.error(error);
+            }
+          });
+        }
       },
       error: error => {
         console.error(error);
@@ -154,12 +158,13 @@ export class StocksComponent implements OnInit {
     });
   }
 
-  // Since the getting the startung value at first page is zero (0) in the rest api,
+  // Since the getting the starting value at first page is zero (0) in the rest api,
   // we can't say that the page is starting at 0 so we add 1 to the page num that displays in the pagination.
   // without this function the pagination below the table would be
   // * < 0 1 2 >
-  // We need to remove that 0 and make it 1, so I added this.
-  // w **** my head hurts.
+  // We need to remove that 0 and make it 1, so I added this used this function.
+  // Now it is,
+  // * < 1 2 3 >, More better.
   paginationIllusion(pageNum: string) {
     return parseInt(pageNum) + 1;
   }
