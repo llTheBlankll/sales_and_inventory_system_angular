@@ -22,6 +22,10 @@ export class RequesterService {
     return this.httpclient.get<Supplier>(this.base_url + "/suppliers/all");
   }
 
+  getSupplierListInPage(pageNum: number): Observable<string> {
+    return this.httpclient.get(this.base_url + "/pagination/numbering/suppliers/" + pageNum, { responseType: "text" });
+  }
+
   deleteSupplier(supplier: Supplier) {
     // Return the message with a type of string.
     return this.httpclient.delete(this.base_url + "/suppliers/delete", { responseType: "text", body: supplier });
@@ -76,7 +80,7 @@ export class RequesterService {
     return this.httpclient.put(this.base_url + "/stocks/add", item, {responseType: "text"});
   }
 
-  stockPagination(pageNum: number) {
+  stockPagination(pageNum: number): Observable<string> {
     return this.httpclient.get(this.base_url + "/pagination/numbering/stocks/" + pageNum, {responseType: "text"});
   }
 
@@ -86,6 +90,10 @@ export class RequesterService {
   // Get all categories in the database.
   getCategoryList(): Observable<Category> {
     return this.httpclient.get<Category>(this.base_url + "/categories/all");
+  }
+
+  getCategoryListAtPage(pageNum: number): Observable<Category> {
+    return this.httpclient.get<Category>(this.base_url + "/categories/all/" + pageNum);
   }
 
   getCategoryByName(name: string): Observable<Category> {

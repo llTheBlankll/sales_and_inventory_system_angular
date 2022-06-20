@@ -19,14 +19,14 @@ export class ModalItemAddComponent implements OnInit, AfterViewInit {
 
   // The form in front of the modal, you can totally see it.
   item_form: FormGroup = new FormGroup({
-      productName: new FormControl("", Validators.required),
-      productDescription: new FormControl("", Validators.required),
-      productUnit: new FormControl("", Validators.required),
-      productPrice: new FormControl("", Validators.required),
-      productQuantity: new FormControl("", Validators.required),
-      productStatus: new FormControl("", Validators.required),
-      category_name: new FormControl("", Validators.required),
-      supplier_name: new FormControl("", Validators.required)
+    productName: new FormControl("", Validators.required),
+    productDescription: new FormControl("", Validators.required),
+    productUnit: new FormControl("", Validators.required),
+    productPrice: new FormControl("", Validators.required),
+    productQuantity: new FormControl("", Validators.required),
+    productStatus: new FormControl("", Validators.required),
+    category_name: new FormControl("", Validators.required),
+    supplier_name: new FormControl("", Validators.required)
   });
 
   // These two variables are for <selector> tags as they are used for <option> tag.
@@ -65,7 +65,7 @@ export class ModalItemAddComponent implements OnInit, AfterViewInit {
 
   addItem(): void {
     let item: Stock;
-    
+
     // * Get Category by Name.
     this.requester.getCategoryByName(this.item_form.controls["category_name"].value).subscribe({
       next: category => {
@@ -93,6 +93,8 @@ export class ModalItemAddComponent implements OnInit, AfterViewInit {
                 Close the modal and send an alert to the user of the result
                 and also refresh the table of the StockComponent.
                 */
+                // Reset the form after the creation of the new item.
+                this.item_form.reset();
                 this.close_modal();
                 window.alert(message);
                 this.stock.refreshStocksTable();
@@ -115,7 +117,7 @@ export class ModalItemAddComponent implements OnInit, AfterViewInit {
 
   // Close this modal.
   close_modal(): void {
-    $("#close_modal").click();
+    $("#close_modal").trigger("click");
   }
 }
 

@@ -33,6 +33,10 @@ export class TopnavComponent implements OnInit {
     {
       href: "/dashboard/suppliers",
       text: "Suppliers"
+    },
+    {
+      href: "/dashboard/categories",
+      text: "Categories"
     }
   ];
 

@@ -15,7 +15,7 @@
                         <div class="card-content">
                             <div class="card-title">
                                 Low on Stocks Items
-                                <h5>{{ (this.low_stocks != null) ? this.low_stocks.length : 0 }} Items</h5>
+                                <h5>{{ (this.low_stocks | async)?.length >= 1 ? (this.low_stocks | async)?.length : 0 }} Items</h5>
                             </div>
                         </div>
                     </div>
@@ -25,7 +25,7 @@
                         <div class="card-content">
                             <div class="card-title">
                                 No Stocks Items
-                                <h5>{{ (this.no_stocks != null) ? this.no_stocks.length : 0 }} Items</h5>
+                                <h5>{{ (this.no_stocks | async)?.length >= 1 ? (this.no_stocks | async)?.length : 0 }} Items</h5>
                             </div>
                         </div>
                     </div>
@@ -63,14 +63,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngIf="(this.stockList != undefined) && (this.stockList.content.length <= 0)">
+                            <tr *ngIf="(this.stockList != undefined) && ((this.stockList | async)?.length <= 0)">
                                 <td colspan="8">
                                     No Items Available
                                     <br>
                                     <a class="link modal-trigger" data-target="add_item">Add item</a>
                                 </td>
                             </tr>
-                            <tr *ngFor="let data of this.stockList.content">
+                            <tr *ngFor="let data of this.stockList | async">
                                 <td>{{ data.productName }}</td>
                                 <td style="word-wrap: break-word">
                                     {{ data.productDescription }}
@@ -91,7 +91,7 @@
                                         (click)="setItemDetails(data)">Details</a>
                                 </td>
                             </tr>
-                            <tr *ngIf="(this.stockList != undefined) && (this.stockList.content.length >= 1)">
+                            <tr *ngIf="(this.stockList != undefined) && ((this.stockList | async)?.length >= 1)">
                                 <td colspan="8">
                                     <a class="link modal-trigger" data-target="add_item">Add new item.</a>
                                 </td>
@@ -103,11 +103,11 @@
                     </table>
 
                     <ul class="pagination center">
-                        <li><a (click)="(this.current_page - 1 >= 0) ? getStockPage(this.current_page - 1) : 0"><i class="material-icons">chevron_left</i></a></li>
+                        <li><a class="link" (click)="(this.current_page - 1 >= 0) ? getStockPage(this.current_page - 1) : 0"><i class="material-icons">chevron_left</i></a></li>
                         <li>
                             <a *ngFor="let pageNum of this.stock_paginations" [ngClass]="{'link': this.current_page == pageNum}" (click)="getStockPage(pageNum)">{{ (pageNum != undefined) ? paginationIllusion(pageNum) : 1 }}</a>
                         </li>
-                        <li><a (click)="getStockPage(this.current_page + 1)"><i class="material-icons">chevron_right</i></a></li>
+                        <li><a class="link" (click)="getStockPage(this.current_page + 1)"><i class="material-icons">chevron_right</i></a></li>
                     </ul>
                 </div>
             </div>

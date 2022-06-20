@@ -1,1 +1,26 @@
-<p>categories works!</p>
+<app-topnav></app-topnav>
+<div class="container">
+    <div class="row">
+        <div class="card">
+            <div class="card-content">
+                <h4 class="card-title center">
+                    Categories
+                </h4>
+                <table class="responsive-table centered">
+                    <thead>
+                        <tr>
+                            <th>Category Name</th>
+                            <th>Category Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let category of this.categories | async">
+                            <td>{{ category.categoryName }}</td>
+                            <td>{{ category.categoryDescription }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

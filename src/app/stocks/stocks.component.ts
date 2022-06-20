@@ -1,7 +1,8 @@
-import { Component, NgIterable, OnInit, } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/internal/Observable';
-import { Category, ItemData, Stock, StockWithPagination, Supplier } from '../entities';
+import { of } from 'rxjs/internal/observable/of';
+import { ItemData, Stock } from '../entities';
 import { RequesterService } from '../requester.service';
 
 declare function activateModals(): any;
@@ -15,11 +16,11 @@ declare function activateModals(): any;
 export class StocksComponent implements OnInit {
 
   item_placeholder: string = "";
-  stockList!: Stock | any;
+  stockList!: Observable<any>
   // This variable is used for how 'many' items is below the quantity of (The configuration of the rest api (default: 10))
-  low_stocks: Stock | any;
+  low_stocks!: Observable<any>;
   // Stocks that has the quantity of 0
-  no_stocks: Stock | any;
+  no_stocks!: Observable<any>;
 
   /* 
   Item to be updated variables.
@@ -53,35 +54,13 @@ export class StocksComponent implements OnInit {
     Get Stock List Page 1.
     NOTE: Page 1 starts at 0.
     */
-    this.requester.getStockListInPage(0).subscribe({
-      next: data => {
-        this.stockList = data;
-      },
-      error: error => {
-        console.error(error);
-      }
-    });
+    this.stockList = this.requester.getStockListInPage(0);
 
     // Get Low Stock List.
-    this.requester.getLowStockItems().subscribe({
-      next: data => {
-        this.low_stocks = data;
-      },
-      error: error => {
-        console.error(error);
-      }
-    });
+    this.low_stocks = this.requester.getLowStockItems();
 
     // Get No Stock List.
-    this.requester.getNoStockItems().subscribe({
-      next: data => {
-        // Assign the data received from the server to the variable no_stocks.
-        this.no_stocks = data;
-      },
-      error: error => {
-        console.error(error);
-      }
-    });
+    this.no_stocks = this.requester.getNoStockItems();
 
     // Load Pagination numbering
     // Page 1 starts at 0
@@ -124,26 +103,26 @@ export class StocksComponent implements OnInit {
   }
 
   getStockPage(pageNum: number) {
+    console.log("Getting Stocks at Page: " + pageNum);
     /* 
     Get Stock List Page 1.
     NOTE: Page 1 starts at 0.
      */
     this.requester.getStockListInPage(pageNum).subscribe({
       next: data => {
-        if (data.content.length > 0) {
-          this.stockList = data;
+        if (data.length > 0) {
+          this.stockList = of(data);
 
           /*
           Page 1 starts at 0
           Refresh the pagination below the table.
-          Load Pagination numbering
           */
           this.requester.stockPagination(pageNum).subscribe({
             next: data => {
               // The data that was received was a string ("[0,1,2]"),
-              let re = /\[|\]/gi;
+              let re = /\[|\]/gi; // * This is used to remove the brackets.
               /*
-              and make it a list by splitting it with a delimiter of ",";
+              and make it an Array by splitting it with a delimiter of ",";
               this is not actually an Array so we will remove the brackets ('[]')
               */
               if (data.replace(re, "").split(",").length >= 1) {
@@ -157,6 +136,8 @@ export class StocksComponent implements OnInit {
               console.error(error);
             }
           });
+        } else {
+          console.log("You have reached the last Item")
         }
       },
       error: error => {
@@ -169,14 +150,7 @@ export class StocksComponent implements OnInit {
   // from the API Server
   refreshStocksTable() {
     // Get Stock List.
-    this.requester.getStockListInPage(this.current_page).subscribe({
-      next: data => {
-        this.stockList = data;
-      },
-      error: error => {
-        console.error(error);
-      }
-    });
+    this.stockList = this.requester.getStockListInPage(this.current_page);
   }
 
   /*
