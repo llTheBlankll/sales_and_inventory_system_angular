@@ -169,7 +169,7 @@ export class StocksComponent implements OnInit {
   // from the API Server
   refreshStocksTable() {
     // Get Stock List.
-    this.requester.getStockList().subscribe({
+    this.requester.getStockListInPage(this.current_page).subscribe({
       next: data => {
         this.stockList = data;
       },
