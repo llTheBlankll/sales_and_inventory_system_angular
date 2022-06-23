@@ -1,1 +1,37 @@
-<p>modal-update-supplier works!</p>
+<div id="update_supplier" class="modal">
+  <div class="modal-content">
+    <h5>Updating <b>{{ (this.supplier_data != undefined) ? this.supplier_data.supplierName : "Loading..." }}</b></h5>
+    <div class="row">
+        <div class="col s12">
+            <div class="row">
+                <form [formGroup]="this.supplier_form" (ngSubmit)="submit()">
+                    <div class="col s12 m12 l6 input-field">
+                        <label for="name">Name</label>
+                        <input type="text" class="validate" formControlName="name">
+                    </div>
+                    <div class="col s12 m12 l6 input-field">
+                        <label for="address">Address</label>
+                        <input type="text" class="validate" formControlName="address">
+                    </div>
+                    <div class="col s12 m12 l6 input-field">
+                        <label for="phone">Phone</label>
+                        <input type="text" class="validate" formControlName="phone">
+                    </div>
+                    <div class="col s12 m12 l6 input-field">
+                        <label for="tax">Fax</label>
+                        <input type="text" class="validate" formControlName="fax">
+                    </div>
+                    <div class="col s12 m12 l12 input-field">
+                        <label for="email">Email</label>
+                        <input type="text" class="validate" formControlName="email">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn red lighten-1 modal-close" style="margin-right: 4px;" id="close_modal">Close</button>
+    <button class="btn green lighten-1" (click)="submit()" [disabled]="!this.supplier_form.valid">Update</button>
+</div>
+</div>

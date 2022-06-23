@@ -1,8 +1,5 @@
 <app-topnav></app-topnav>
-<!--
-    Suppliers Modal
-    <app-modal-update-supplier [supplier_data]=""></app-modal-update-supplier>
--->
+<app-modal-update-supplier [supplier_data]="this.supplierData | async"></app-modal-update-supplier>
 <app-modal-delete-supplier [supplier_data]="this.supplierData | async"></app-modal-delete-supplier>
 <app-modal-add-supplier></app-modal-add-supplier>
 <div class="container">
@@ -29,7 +26,7 @@
             <td>{{ supplier.supplierFax == null ? "Unspecified" : supplier.supplierFax }}</td>
             <td>{{ supplier.supplierEmail }}</td>
             <td>
-              <a class="link" data-target="update_supplier" (click)="setSupplierData(supplier)">Update</a>
+              <a class="link modal-trigger" data-target="update_supplier" (click)="setSupplierData(supplier)">Update</a>
               |
               <a class="link modal-trigger" data-target="delete_supplier" (click)="setSupplierData(supplier)">Delete</a>
             </td>

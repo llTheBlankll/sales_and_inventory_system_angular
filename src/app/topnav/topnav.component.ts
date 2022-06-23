@@ -45,14 +45,11 @@ export class TopnavComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.current_url = this.router.snapshot.url.toString();
+
     // Activate Links Dropdowns
     activateDropdowns();
-
-    // Current URL.
-    this.router.snapshot.url.map((url) => {
-      this.current_url = url.path;
-    });
-
+    
     // For debugging, to know where you are.
     this.logger.Log(this.current_url);
   }

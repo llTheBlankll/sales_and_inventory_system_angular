@@ -60,6 +60,25 @@ export class ModalItemAddComponent implements OnInit, AfterViewInit {
     }, 2500);
   }
 
+  convertFormToStock(item_form: FormGroup, category: Category, supplier: Supplier): Stock {
+    let item: Stock[] = [];
+
+    item.push({
+      id: null,
+      productName: this.item_form.controls['productName'].value,
+      productDescription: this.item_form.controls['productDescription'].value,
+      productPrice: this.item_form.controls['productPrice'].value,
+      productQuantity: this.item_form.controls['productQuantity'].value,
+      productStatus: this.item_form.controls['productStatus'].value,
+      productUnit: this.item_form.controls['productUnit'].value,
+      category: category,
+      supplier: supplier,
+      productOtherDetails: null,
+    });
+
+    return item[0];
+  }
+
   addItem(): void {
     let item: Stock;
 
@@ -69,18 +88,7 @@ export class ModalItemAddComponent implements OnInit, AfterViewInit {
         // * Get Supplier by Name.
         this.requester.getSupplierByName(this.item_form.controls['supplier_name'].value).subscribe({
           next: (supplier) => {
-            item = {
-              id: null,
-              productName: this.item_form.controls['productName'].value,
-              productDescription: this.item_form.controls['productDescription'].value,
-              productPrice: this.item_form.controls['productPrice'].value,
-              productQuantity: this.item_form.controls['productQuantity'].value,
-              productStatus: this.item_form.controls['productStatus'].value,
-              productUnit: this.item_form.controls['productUnit'].value,
-              category: category,
-              supplier: supplier,
-              productOtherDetails: null,
-            };
+            let item = this.convertFormToStock(this.item_form, category, supplier);
 
             // Send the data to server.
             this.requester.addItem(item).subscribe({

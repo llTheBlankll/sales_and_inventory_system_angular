@@ -34,6 +34,6 @@ export class ModalDeleteSupplierComponent implements OnInit {
 
   // * Closing the this modal.
   close_modal(): void {
-    M.Modal.init(document.getElementById('delete_supplier') as HTMLElement).close();
+    $("#close_modal").trigger("click");
   }
 }

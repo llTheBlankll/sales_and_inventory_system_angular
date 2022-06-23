@@ -52,6 +52,6 @@ export class ModalAddSupplierComponent implements OnInit {
   }
 
   close_modal(): void {
-    M.Modal.init(document.getElementById('add_supplier') as HTMLElement).close();
+    $("#close_modal").trigger("click");
   }
 }

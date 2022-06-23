@@ -41,7 +41,7 @@ export interface Supplier {
   supplierPhone: string;
   supplierFax: string;
   supplierEmail: string;
-  supplierOtherDetails: string;
+  supplierOtherDetails: string | null;
 }
 
 export interface ItemData {

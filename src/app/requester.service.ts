@@ -48,6 +48,10 @@ export class RequesterService {
       responseType: 'text',
     });
   }
+  
+  updateSupplier(supplier: Supplier): Observable<any> {
+    return this.httpclient.put(this.base_url + "/suppliers/update", supplier, { responseType: "text" });
+  }
 
   // ! SUPPLIER FUNCTIONS END HERE.
   // * STOCK/ITEMS FUNCTIONS STARTED HERE.
@@ -77,15 +81,15 @@ export class RequesterService {
     return this.httpclient.get<Stock>(this.base_url + '/stocks/no_stock');
   }
 
-  updateStock(data: Stock) {
-    return this.httpclient.put<Stock>(this.base_url + '/stocks/add', data);
+  updateStock(data: Stock): Observable<any> {
+    return this.httpclient.put(this.base_url + '/stocks/update', data, { responseType: "text" });
   }
 
   deleteItem(id: number) {
     return this.httpclient.delete(this.base_url + '/stocks/delete/' + id);
   }
 
-  addItem(item: Stock) {
+  addItem(item: Stock): Observable<any> {
     // Returns string for the message
     return this.httpclient.put(this.base_url + '/stocks/add', item, { responseType: 'text' });
   }

@@ -19,15 +19,15 @@ export class ModalItemDeleteComponent implements OnInit {
   ngOnInit(): void {}
 
   deleteItem(id: number) {
-    // Get Modal Instance
-    let close_modal = new M.Modal(document.getElementById('delete_item') as HTMLElement);
 
     // Request deletion of Item from the server.
     this.requester.deleteItem(id).subscribe({
       next: (data) => {
         // If success, refresh the table of the StockComponent and close the modal.
         this.stock.refreshStocksTable();
-        close_modal.close();
+        
+        // Close modal.
+        $("#close_modal").trigger("click");
       },
       error: (error) => {
         console.error(error);

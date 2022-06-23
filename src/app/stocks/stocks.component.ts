@@ -146,7 +146,8 @@ export class StocksComponent implements OnInit {
   // from the API Server
   refreshStocksTable() {
     // Get Stock List.
-    this.stockList = this.requester.getStockListInPage(this.current_page);
+    // this.stockList = this.requester.getStockListInPage(this.current_page);
+    this.getStockPage(this.current_page);
   }
 
   /*
