@@ -62,7 +62,19 @@ export class StocksComponent implements OnInit {
     // Get No Stock List.
     this.no_stocks = this.requester.getNoStockItems();
 
-    
+    // Initialize Pagination
+    this.requester.stockPagination(0).subscribe(
+      {
+        next: pagination => {
+          let re = /\[|\]/gi;
+          let data = pagination.replace(re, "").split(",");
+          this.stock_paginations = data;
+        },
+        error: err => {
+          console.error(err);
+        }
+      }
+    );
 
     // Activate Modals.
     activateModals();

@@ -22,15 +22,26 @@ export class SuppliersComponent implements OnInit {
   // Page 1 starts at 0.
   current_page: number = 0;
 
-  pagination: any;
+  pagination!: any;
 
   ngOnInit(): void {
     this.loadSupplierTableContent();
 
     // Initialize Modals.
     activateModals();
-
     
+    this.requester.getSupplierPagination(0).subscribe(
+      {
+        next: pagination => {
+          let re = /\[|\]/gi;
+          let data = pagination.replace(re, "").split(",");
+          this.pagination = data;
+        },
+        error: err => {
+          console.error(err);
+        }
+      }
+    );
   }
 
   loadSupplierTableContent() {
@@ -51,14 +62,14 @@ export class SuppliersComponent implements OnInit {
   }
 
   setSupplierDataInPage(pageNum: number): void {
-    console.log("Getting Stocks at Page: " + pageNum);
     /* 
-    Get Stock List Page 1.
+    Get Supplier List Page 1.
     NOTE: Page 1 starts at 0.
      */
     this.requester.getSupplierListInPage(pageNum).subscribe({
       next: data => {
-        if (data.length > 0) {
+        if (data.length > 0) 
+        {
           this.supplierList = of(data);
 
           /*
@@ -77,16 +88,15 @@ export class SuppliersComponent implements OnInit {
                 this.pagination = data.replace(re, "").split(",");
                 this.current_page = pageNum;
               }
-              // * Set the current page to 'pageNum';
-              console.log(data);
-              console.log(this.pagination + " = " + this.current_page);
             },
             error: error => {
               console.error(error);
             }
           });
-        } else {
-          console.log("You have reached the last Item");
+        }
+        else
+        {
+          console.log("You have reached the last supplier.");
         }
       },
       error: error => {
