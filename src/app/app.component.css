@@ -1,14 +1,14 @@
-.input-field input[type=text]:focus + label {
+.input-field input[type="text"]:focus + label {
     color: #e91e63;
 }
 
-.input-field input[type=text]:focus {
+.input-field input[type="text"]:focus {
     border-bottom-color: #e91e63;
     box-shadow: none;
 }
 
 .link {
-    color: #E91E63;
+    color: #e91e63;
     text-decoration: none;
     cursor: pointer;
 }

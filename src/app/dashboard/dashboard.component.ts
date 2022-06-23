@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit {
         label: "Money"
       }
     ],
-    labels: [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ],
+    labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
   };
 
   public lineChartOption: ChartConfiguration["options"] = {

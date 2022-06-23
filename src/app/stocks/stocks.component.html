@@ -15,7 +15,8 @@
                         <div class="card-content">
                             <div class="card-title">
                                 Low on Stocks Items
-                                <h5>{{ (this.low_stocks | async)?.length >= 1 ? (this.low_stocks | async)?.length : 0 }} Items</h5>
+                                <h5>{{ (this.low_stocks | async)?.length >= 1 ? (this.low_stocks | async)?.length : 0 }}
+                                    Items</h5>
                             </div>
                         </div>
                     </div>
@@ -25,7 +26,8 @@
                         <div class="card-content">
                             <div class="card-title">
                                 No Stocks Items
-                                <h5>{{ (this.no_stocks | async)?.length >= 1 ? (this.no_stocks | async)?.length : 0 }} Items</h5>
+                                <h5>{{ (this.no_stocks | async)?.length >= 1 ? (this.no_stocks | async)?.length : 0 }}
+                                    Items</h5>
                             </div>
                         </div>
                     </div>
@@ -103,13 +105,17 @@
                     </table>
 
                     <ul class="pagination center">
-                        <li><a class="link" (click)="(this.current_page - 1 >= 0) ? getStockPage(this.current_page - 1) : 0"><i class="material-icons">chevron_left</i></a></li>
+                        <li><a class="link"
+                                (click)="(this.current_page - 1 >= 0) ? getStockPage(this.current_page - 1) : 0"><i
+                                    class="material-icons">chevron_left</i></a></li>
                         <li>
-                            <a *ngFor="let pageNum of this.stock_paginations" [ngClass]="{'link': this.current_page == pageNum}" (click)="getStockPage(pageNum)">
+                            <a *ngFor="let pageNum of this.stock_paginations"
+                                [ngClass]="{'link': this.current_page == pageNum}" (click)="getStockPage(pageNum)">
                                 {{ (pageNum != undefined) ? paginationIllusion(pageNum) : 1 }}
                             </a>
                         </li>
-                        <li><a class="link" (click)="getStockPage(this.current_page + 1)"><i class="material-icons">chevron_right</i></a></li>
+                        <li><a class="link" (click)="getStockPage(this.current_page + 1)"><i
+                                    class="material-icons">chevron_right</i></a></li>
                     </ul>
                 </div>
             </div>

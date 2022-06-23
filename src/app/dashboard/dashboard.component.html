@@ -60,9 +60,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                      <tr *ngIf="(this.low_stocks != undefined) && (this.low_stocks.length <= 0)" class="green lighten-2 white-text">
-                        <td colspan="3">All is well. Nothing is out or low on stock</td>
-                      </tr>
+                        <tr *ngIf="(this.low_stocks != undefined) && (this.low_stocks.length <= 0)"
+                            class="green lighten-2 white-text">
+                            <td colspan="3">All is well. Nothing is out or low on stock</td>
+                        </tr>
                         <tr *ngFor="let item of this.low_stocks">
                             <td>{{ item.productName }}</td>
                             <td>{{ item.productQuantity }}</td>

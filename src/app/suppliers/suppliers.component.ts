@@ -29,7 +29,7 @@ export class SuppliersComponent implements OnInit {
 
     // Initialize Modals.
     activateModals();
-    
+
     this.requester.getSupplierPagination(0).subscribe(
       {
         next: pagination => {
@@ -45,8 +45,8 @@ export class SuppliersComponent implements OnInit {
   }
 
   loadSupplierTableContent() {
-     // * Get Supplier List and display it to the table.
-     this.requester.getSupplierListInPage(0).subscribe({
+    // * Get Supplier List and display it to the table.
+    this.requester.getSupplierListInPage(0).subscribe({
       next: data => {
         this.supplierList = of(data);
       },
@@ -57,7 +57,7 @@ export class SuppliersComponent implements OnInit {
   }
 
   // * Set the supplier_data variable for modifying supplier data for Modals like Update and Delete.
-  setSupplierData(supplier: Supplier) { 
+  setSupplierData(supplier: Supplier) {
     this.supplierData = of(supplier);
   }
 
@@ -68,8 +68,7 @@ export class SuppliersComponent implements OnInit {
      */
     this.requester.getSupplierListInPage(pageNum).subscribe({
       next: data => {
-        if (data.length > 0) 
-        {
+        if (data.length > 0) {
           this.supplierList = of(data);
 
           /*
@@ -94,8 +93,7 @@ export class SuppliersComponent implements OnInit {
             }
           });
         }
-        else
-        {
+        else {
           console.log("You have reached the last supplier.");
         }
       },

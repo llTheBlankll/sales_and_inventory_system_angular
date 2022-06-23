@@ -1,16 +1,19 @@
 <ul id="links" class="dropdown-content">
-    <li *ngFor="let link of this.links" [ngClass]="{'active': this.current_url == link.href}"><a [routerLink]="link.href">{{ link.text }}</a></li>
+    <li *ngFor="let link of this.links" [ngClass]="{'active': this.current_url == link.href}"><a
+            [routerLink]="link.href">{{ link.text }}</a></li>
 </ul>
 
 <nav>
     <div class="nav-wrapper">
         <a routerLink="/" class="brand-logo center">Sales and Inventory System</a>
         <ul class="left hide-on-med-and-down">
-            <li *ngFor="let link of links" [ngClass]="{'active': this.current_url == link.href}"><a [routerLink]="link.href">{{ link.text }}</a></li>
+            <li *ngFor="let link of links" [ngClass]="{'active': this.current_url == link.href}"><a
+                    [routerLink]="link.href">{{ link.text }}</a></li>
         </ul>
         <ul class="left hide-on-large-only" style="justify-content: space-between;">
             <li class="active">
-                <a class="dropdown-trigger" data-target="links">{{ this.current_url[0].toUpperCase() + this.current_url.substring(1) }}</a>
+                <a class="dropdown-trigger"
+                    data-target="links">{{ this.current_url[0].toUpperCase() + this.current_url.substring(1) }}</a>
             </li>
         </ul>
     </div>

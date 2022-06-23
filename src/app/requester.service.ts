@@ -11,7 +11,7 @@ export class RequesterService {
 
   total: any;
 
-  constructor(private httpclient: HttpClient, private logger: LoggerService ) { }
+  constructor(private httpclient: HttpClient, private logger: LoggerService) { }
 
   base_url: string = "http://localhost:8080/api";
 
@@ -55,12 +55,12 @@ export class RequesterService {
     // * Page 1 starts at 0.
     return this.httpclient.get<any>(this.base_url + "/stocks/all/" + pageNum);
   }
-  
+
   // Get the total value of the entire inventory.
   getInventoryValue(): Observable<any> {
     return this.httpclient.get(this.base_url + "/stocks/total_value");
   }
-  
+
   // Get Low Stock Items.
   getLowStockItems(): Observable<Stock> {
     return this.httpclient.get<Stock>(this.base_url + "/stocks/low_stock");
@@ -81,11 +81,11 @@ export class RequesterService {
 
   addItem(item: Stock) {
     // Returns string for the message
-    return this.httpclient.put(this.base_url + "/stocks/add", item, {responseType: "text"});
+    return this.httpclient.put(this.base_url + "/stocks/add", item, { responseType: "text" });
   }
 
   stockPagination(pageNum: number): Observable<string> {
-    return this.httpclient.get(this.base_url + "/pagination/stocks/" + pageNum, {responseType: "text"});
+    return this.httpclient.get(this.base_url + "/pagination/stocks/" + pageNum, { responseType: "text" });
   }
 
   // ! STOCK/ITEM FUNCTIONS END HERE.
@@ -103,9 +103,9 @@ export class RequesterService {
   getCategoryByName(name: string): Observable<Category> {
     return this.httpclient.get<Category>(this.base_url + "/categories/by_name?name=" + name);
   }
-  
+
   addCategory(category: Category): Observable<any> {
-    return this.httpclient.put(this.base_url + "/categories/add", category, { responseType: "text"});
+    return this.httpclient.put(this.base_url + "/categories/add", category, { responseType: "text" });
   }
 
   deleteCategory(category: Category): Observable<any> {
@@ -113,7 +113,7 @@ export class RequesterService {
   }
 
   updateCategory(category: Category): Observable<any> {
-    return this.httpclient.put(this.base_url + "/categories/update", category, { responseType: "text"});
+    return this.httpclient.put(this.base_url + "/categories/update", category, { responseType: "text" });
   }
 
   categoryPagination(pageNum: number): Observable<string> {
