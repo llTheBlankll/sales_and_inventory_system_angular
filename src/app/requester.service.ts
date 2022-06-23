@@ -96,7 +96,7 @@ export class RequesterService {
     return this.httpclient.get<Category>(this.base_url + "/categories/all");
   }
 
-  getCategoryListAtPage(pageNum: number): Observable<Category> {
+  getCategoryListInPage(pageNum: number): Observable<any> {
     return this.httpclient.get<Category>(this.base_url + "/categories/all/" + pageNum);
   }
 
@@ -116,6 +116,9 @@ export class RequesterService {
     return this.httpclient.put(this.base_url + "/categories/update", category, { responseType: "text"});
   }
 
+  categoryPagination(pageNum: number): Observable<string> {
+    return this.httpclient.get(this.base_url + "/pagination/categories/" + pageNum, { responseType: "text" });
+  }
 
   //! CATEGORY FUNCTIONS END HERE.
 }

@@ -20,6 +20,13 @@
                         </tr>
                     </tbody>
                 </table>
+                <ul class="pagination center">
+                    <li><a (click)="(this.current_page - 1 > 0) ? setCategoryPagination(this.current_page - 1) : setCategoryPagination(0)"><i class="material-icons">chevron_left</i></a></li>
+                    <li>
+                        <a *ngFor="let num of this.categories_pagination" [ngClass]="{'link': this.current_page == num}">{{ (num != undefined) ? this.paginationIllusion(num) : 1 }}</a>
+                    </li>
+                    <li><a (click)="(this.current_page + 1 > 0) ? setCategoryPagination(this.current_page + 1) : setCategoryPagination(0)"><i class="material-icons">chevron_right</i></a></li>
+                </ul>
             </div>
         </div>
     </div>

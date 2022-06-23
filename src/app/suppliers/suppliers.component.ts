@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgIterable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs/internal/observable/of';
 import { Supplier } from '../entities';
@@ -22,7 +22,7 @@ export class SuppliersComponent implements OnInit {
   // Page 1 starts at 0.
   current_page: number = 0;
 
-  pagination!: any;
+  pagination!: NgIterable<any>;
 
   ngOnInit(): void {
     this.loadSupplierTableContent();
