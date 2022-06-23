@@ -22,8 +22,8 @@ export class RequesterService {
     return this.httpclient.get<Supplier>(this.base_url + "/suppliers/all");
   }
 
-  getSupplierListInPage(pageNum: number): Observable<string> {
-    return this.httpclient.get(this.base_url + "/pagination/numbering/suppliers/" + pageNum, { responseType: "text" });
+  getSupplierListInPage(pageNum: number): Observable<any> {
+    return this.httpclient.get(this.base_url + "/suppliers/all/" + pageNum);
   }
 
   deleteSupplier(supplier: Supplier) {
@@ -37,6 +37,10 @@ export class RequesterService {
 
   getSupplierByName(name: string): Observable<Supplier> {
     return this.httpclient.get<Supplier>(this.base_url + "/suppliers/by_name?supplier_name=" + name);
+  }
+
+  getSupplierPagination(pageNum: number): Observable<string> {
+    return this.httpclient.get(this.base_url + "/pagination/suppliers/" + pageNum, { responseType: "text" });
   }
 
   // ! SUPPLIER FUNCTIONS END HERE.
@@ -81,7 +85,7 @@ export class RequesterService {
   }
 
   stockPagination(pageNum: number): Observable<string> {
-    return this.httpclient.get(this.base_url + "/pagination/numbering/stocks/" + pageNum, {responseType: "text"});
+    return this.httpclient.get(this.base_url + "/pagination/stocks/" + pageNum, {responseType: "text"});
   }
 
   // ! STOCK/ITEM FUNCTIONS END HERE.
@@ -113,5 +117,5 @@ export class RequesterService {
   }
 
 
-  // ! CATEGORIES FUNCTIONS END HERE.
+  //! CATEGORY FUNCTIONS END HERE.
 }

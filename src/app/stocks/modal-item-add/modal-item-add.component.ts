@@ -3,7 +3,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Category, Stock, Supplier } from 'src/app/entities';
 import { RequesterService } from 'src/app/requester.service';
 import { StocksComponent } from '../stocks.component';
-import * as M from "materialize-css";
 
 declare function activateSelectors(): any;
 

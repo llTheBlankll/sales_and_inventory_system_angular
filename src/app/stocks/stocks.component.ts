@@ -62,17 +62,7 @@ export class StocksComponent implements OnInit {
     // Get No Stock List.
     this.no_stocks = this.requester.getNoStockItems();
 
-    // Load Pagination numbering
-    // Page 1 starts at 0
-    this.requester.stockPagination(0).subscribe({
-      next: data => {
-        let re = /\[|\]/gi;
-        this.stock_paginations = data.replace(re, "").split(",")
-      },
-      error: error => {
-        console.error(error);
-      }
-    });
+    
 
     // Activate Modals.
     activateModals();
@@ -123,13 +113,14 @@ export class StocksComponent implements OnInit {
               let re = /\[|\]/gi; // * This is used to remove the brackets.
               /*
               and make it an Array by splitting it with a delimiter of ",";
-              this is not actually an Array so we will remove the brackets ('[]')
+              this is not an Array so we will remove the brackets ('[]')
               */
               if (data.replace(re, "").split(",").length >= 1) {
                 this.stock_paginations = data.replace(re, "").split(",");
                 this.current_page = pageNum;
               }
               // * Set the current page to 'pageNum';
+              console.log(data);
               console.log(this.stock_paginations + " = " + this.current_page);
             },
             error: error => {
@@ -155,13 +146,13 @@ export class StocksComponent implements OnInit {
 
   /*
   we can't say that the page is starting at 0 so we add 1 to the page num that displays in the pagination. 
-  without this function the pagination below the table would be
+  without this function, the pagination below the table would be
   * < 0 1 2 >
-  We need to remove that 0 and make it 1, so I added this used this function.
+  We need to remove that 0 and make it 1, so I added this and used it.
   Now it is,
-  * < 1 2 3 >, More better, but the value of that pagination to the backend is
-  actually < 0 1 2 > because the page one starts at 0.
-  Since the getting the starting value at first page is zero (0) in the rest api,
+  * < 1 2 3 >, More better, 
+  but the value of that pagination to the backend is actually < 0 1 2 > because the page one starts at 0.
+  Since getting the starting value on the first page is zero (0) in the rest API,
   */
   paginationIllusion(pageNum: string) {
     return parseInt(pageNum) + 1;

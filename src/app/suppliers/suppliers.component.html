@@ -3,7 +3,7 @@
     Suppliers Modal
     <app-modal-update-supplier [supplier_data]=""></app-modal-update-supplier>
 -->
-<app-modal-delete-supplier [supplier_data]="this.supplierData"></app-modal-delete-supplier>
+<app-modal-delete-supplier [supplier_data]="this.supplierData | async"></app-modal-delete-supplier>
 <app-modal-add-supplier></app-modal-add-supplier>
 <div class="container">
     <div class="card">
@@ -22,7 +22,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let supplier of this.supplierList">
+                    <tr *ngFor="let supplier of this.supplierList | async">
                         <td>{{ supplier.supplierName }}</td>
                         <td>{{ supplier.supplierAddress }}</td>
                         <td>{{ supplier.supplierPhone }}</td>
@@ -31,11 +31,21 @@
                         <td>
                             <a class="link" data-target="update_supplier" (click)="setSupplierData(supplier)">Update</a>
                             |
-                            <a class="link modal-trigger" data-target="delete_supplier" (click)="setSupplierData(supplier)">Delete</a>
+                            <a class="link modal-trigger" data-target="delete_supplier"
+                                (click)="setSupplierData(supplier)">Delete</a>
                         </td>
                     </tr>
                 </tbody>
             </table>
+            <ul class="pagination center">
+                <li><a class="link" (click)="(this.current_page - 1 >= 0) ? setSupplierDataInPage(this.current_page - 1) : 0"><i class="material-icons">chevron_left</i></a></li>
+                <li>
+                    <a *ngFor="let pageNum of this.pagination" [ngClass]="{'link': this.current_page == pageNum}" (click)="setSupplierDataInPage(pageNum)">
+                        {{ (pageNum != undefined) ? paginationIllusion(pageNum) : 1 }}
+                    </a>
+                </li>
+                <li><a class="link" (click)="setSupplierDataInPage(this.current_page + 1)"><i class="material-icons">chevron_right</i></a></li>
+            </ul>
         </div>
     </div>
 </div>
