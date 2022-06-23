@@ -9,9 +9,7 @@
   <div class="card">
     <div class="card-content">
       <h5 class="card-title center" style="font-size: 2vw">Suppliers</h5>
-      <a data-target="add_supplier" class="modal-trigger" style="cursor: pointer"
-        >Add new Supplier</a
-      >
+      <a data-target="add_supplier" class="modal-trigger" style="cursor: pointer">Add new Supplier</a>
       <table class="responsive-table centered">
         <thead>
           <tr>
@@ -31,41 +29,24 @@
             <td>{{ supplier.supplierFax == null ? "Unspecified" : supplier.supplierFax }}</td>
             <td>{{ supplier.supplierEmail }}</td>
             <td>
-              <a class="link" data-target="update_supplier" (click)="setSupplierData(supplier)"
-                >Update</a
-              >
+              <a class="link" data-target="update_supplier" (click)="setSupplierData(supplier)">Update</a>
               |
-              <a
-                class="link modal-trigger"
-                data-target="delete_supplier"
-                (click)="setSupplierData(supplier)"
-                >Delete</a
-              >
+              <a class="link modal-trigger" data-target="delete_supplier" (click)="setSupplierData(supplier)">Delete</a>
             </td>
           </tr>
         </tbody>
       </table>
       <ul class="pagination center">
         <li>
-          <a
-            class="link"
-            (click)="this.current_page - 1 >= 0 ? setSupplierDataInPage(this.current_page - 1) : 0"
-            ><i class="material-icons">chevron_left</i></a
-          >
+          <a class="link" (click)="this.current_page - 1 >= 0 ? setSupplierDataInPage(this.current_page - 1) : 0"><i class="material-icons">chevron_left</i></a>
         </li>
         <li>
-          <a
-            *ngFor="let pageNum of this.pagination"
-            [ngClass]="{ link: this.current_page == pageNum }"
-            (click)="setSupplierDataInPage(pageNum)"
-          >
+          <a *ngFor="let pageNum of this.pagination" [ngClass]="{ link: this.current_page == pageNum }" (click)="setSupplierDataInPage(pageNum)">
             {{ pageNum != undefined ? paginationIllusion(pageNum) : 1 }}
           </a>
         </li>
         <li>
-          <a class="link" (click)="setSupplierDataInPage(this.current_page + 1)"
-            ><i class="material-icons">chevron_right</i></a
-          >
+          <a class="link" (click)="setSupplierDataInPage(this.current_page + 1)"><i class="material-icons">chevron_right</i></a>
         </li>
       </ul>
     </div>

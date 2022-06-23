@@ -37,14 +37,7 @@ import { CategoriesComponent } from './categories/categories.component';
     ModalAddSupplierComponent,
     CategoriesComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    NgChartsModule,
-    HttpClientModule,
-  ],
+  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, FormsModule, NgChartsModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })

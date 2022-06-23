@@ -40,9 +40,7 @@ export class RequesterService {
   }
 
   getSupplierByName(name: string): Observable<Supplier> {
-    return this.httpclient.get<Supplier>(
-      this.base_url + '/suppliers/by_name?supplier_name=' + name
-    );
+    return this.httpclient.get<Supplier>(this.base_url + '/suppliers/by_name?supplier_name=' + name);
   }
 
   getSupplierPagination(pageNum: number): Observable<string> {

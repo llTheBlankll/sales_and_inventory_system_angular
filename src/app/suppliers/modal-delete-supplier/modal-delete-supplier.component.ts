@@ -9,10 +9,7 @@ import { SuppliersComponent } from '../suppliers.component';
   styleUrls: ['./modal-delete-supplier.component.css'],
 })
 export class ModalDeleteSupplierComponent implements OnInit {
-  constructor(
-    private requester: RequesterService,
-    @Host() private supplierComponent: SuppliersComponent
-  ) {}
+  constructor(private requester: RequesterService, @Host() private supplierComponent: SuppliersComponent) {}
 
   @Input()
   supplier_data!: Supplier;

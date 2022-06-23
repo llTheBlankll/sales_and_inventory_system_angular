@@ -10,10 +10,7 @@ import { SuppliersComponent } from '../suppliers.component';
   styleUrls: ['./modal-add-supplier.component.css'],
 })
 export class ModalAddSupplierComponent implements OnInit {
-  constructor(
-    private requester: RequesterService,
-    @Host() private suppliersComponent: SuppliersComponent
-  ) {}
+  constructor(private requester: RequesterService, @Host() private suppliersComponent: SuppliersComponent) {}
 
   supplier_form: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),

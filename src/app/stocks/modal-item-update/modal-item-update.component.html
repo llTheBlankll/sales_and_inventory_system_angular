@@ -9,51 +9,24 @@
           <form [formGroup]="this.item_new_form">
             <div class="col s12 m12 l6 input-field">
               <label for="product_name">Name</label>
-              <input
-                formControlName="productName"
-                type="text"
-                name="product_name"
-                id="product_name"
-                class="validate"
-              />
+              <input formControlName="productName" type="text" name="product_name" id="product_name" class="validate" />
             </div>
             <div class="col s12 m12 l6 input-field">
               <label for="product_unit">Unit</label>
-              <input
-                formControlName="productUnit"
-                type="text"
-                name="product_unit"
-                id="product_unit"
-                class="validate"
-              />
+              <input formControlName="productUnit" type="text" name="product_unit" id="product_unit" class="validate" />
             </div>
             <div class="col s12 m12 l6 input-field">
               <label for="product_price">Price</label>
-              <input
-                formControlName="productPrice"
-                type="number"
-                name="product_price"
-                id="product_price"
-                class="validate"
-              />
+              <input formControlName="productPrice" type="number" name="product_price" id="product_price" class="validate" />
             </div>
             <div class="col s12 m12 l6 input-field">
               <label for="product_quantity">Quantity</label>
-              <input
-                formControlName="productQuantity"
-                type="number"
-                name="product_quantity"
-                id="product_quantity"
-                class="validate"
-              />
+              <input formControlName="productQuantity" type="number" name="product_quantity" id="product_quantity" class="validate" />
             </div>
             <div class="col s12 m12 l6 input-field">
               <select formControlName="category_name">
                 <option value="" selected disabled>Choose Category</option>
-                <option
-                  *ngFor="let category of this.all_categories"
-                  [value]="category.categoryName"
-                >
+                <option *ngFor="let category of this.all_categories" [value]="category.categoryName">
                   {{ category.categoryName }}
                 </option>
               </select>
@@ -70,14 +43,7 @@
             </div>
             <div class="col s12 m12 l12 input-field">
               <label for="product_description">Description</label>
-              <textarea
-                formControlName="productDescription"
-                name="product_description"
-                id="product_description"
-                cols="30"
-                rows="10"
-                class="materialize-textarea"
-              ></textarea>
+              <textarea formControlName="productDescription" name="product_description" id="product_description" cols="30" rows="10" class="materialize-textarea"></textarea>
             </div>
           </form>
         </div>
@@ -85,13 +51,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button
-      class="btn-flat green lighten-1 white-text"
-      [disabled]="!this.item_new_form.valid"
-      (click)="updateItem()"
-    >
-      Update
-    </button>
+    <button class="btn-flat green lighten-1 white-text" [disabled]="!this.item_new_form.valid" (click)="updateItem()">Update</button>
     <a class="modal-close btn-flat red lighten-2 white-text">Close</a>
   </div>
 </div>
