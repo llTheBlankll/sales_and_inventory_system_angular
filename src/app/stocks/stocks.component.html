@@ -7,118 +7,152 @@
 <app-modal-item-add></app-modal-item-add>
 
 <div class="container">
-    <div class="row">
-        <div class="col s12 m12 l3">
-            <div class="row">
-                <div class="col s12 m6 l12">
-                    <div class="card center">
-                        <div class="card-content">
-                            <div class="card-title">
-                                Low on Stocks Items
-                                <h5>{{ (this.low_stocks | async)?.length >= 1 ? (this.low_stocks | async)?.length : 0 }}
-                                    Items</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12 m6 l12">
-                    <div class="card center">
-                        <div class="card-content">
-                            <div class="card-title">
-                                No Stocks Items
-                                <h5>{{ (this.no_stocks | async)?.length >= 1 ? (this.no_stocks | async)?.length : 0 }}
-                                    Items</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <div class="row">
+    <div class="col s12 m12 l3">
+      <div class="row">
+        <div class="col s12 m6 l12">
+          <div class="card center">
+            <div class="card-content">
+              <div class="card-title">
+                Low on Stocks Items
+                <h5>
+                  {{
+                    (this.low_stocks | async)?.length >= 1 ? (this.low_stocks | async)?.length : 0
+                  }}
+                  Items
+                </h5>
+              </div>
             </div>
+          </div>
         </div>
-        <div class="col s12 m12 l9">
-            <div class="card">
-                <div class="card-content">
-                    <span class="card-title">Stocks</span>
-                    <form (ngSubmit)="searchSubmit()" [formGroup]="this.search_form">
-                        <div class="row valign-wrapper">
-                            <div class="col s9 m10 l10 input-field">
-                                <input type="text" class="validate" id="item"
-                                    (focus)="this.item_placeholder = 'Search item.'"
-                                    [placeholder]="this.item_placeholder" formControlName="search_name" />
-                                <label for="item">Item</label>
-                            </div>
-                            <button class="btn waves-effect btn-small col s3 m2 l2 green">
-                                Search
-                            </button>
-                        </div>
-                    </form>
-                    <table class="responsive-table centered" style="table-layout: fixed">
-                        <thead class="blue lighten-1 white-text">
-                            <tr>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Unit</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Category</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngIf="(this.stockList != undefined) && ((this.stockList | async)?.length <= 0)">
-                                <td colspan="8">
-                                    No Items Available
-                                    <br>
-                                    <a class="link modal-trigger" data-target="add_item">Add item</a>
-                                </td>
-                            </tr>
-                            <tr *ngFor="let data of this.stockList | async">
-                                <td>{{ data.productName }}</td>
-                                <td style="word-wrap: break-word">
-                                    {{ data.productDescription }}
-                                </td>
-                                <td>{{ data.productUnit }}</td>
-                                <td>${{ data.productPrice }}</td>
-                                <td>{{ data.productQuantity }}</td>
-                                <td>{{ data.category.categoryName }}</td>
-                                <td>{{ data.productStatus }}</td>
-                                <td>
-                                    <a class="link modal-trigger" data-target="update_item"
-                                        (click)="setUpdateForm(data)">Update</a>
-                                    |
-                                    <a class="link modal-trigger" id="delete_item" data-target="delete_item"
-                                        (click)="setDeleteData(data.id, data.productName)">Delete</a>
-                                    |
-                                    <a class="link modal-trigger" data-target="details_item"
-                                        (click)="setItemDetails(data)">Details</a>
-                                </td>
-                            </tr>
-                            <tr *ngIf="(this.stockList != undefined) && ((this.stockList | async)?.length >= 1)">
-                                <td colspan="8">
-                                    <a class="link modal-trigger" data-target="add_item">Add new item.</a>
-                                </td>
-                                <td colspan="8" *ngIf="this.stockList == undefined">
-                                    <h6>Loading...</h6>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <ul class="pagination center">
-                        <li><a class="link"
-                                (click)="(this.current_page - 1 >= 0) ? getStockPage(this.current_page - 1) : 0"><i
-                                    class="material-icons">chevron_left</i></a></li>
-                        <li>
-                            <a *ngFor="let pageNum of this.stock_paginations"
-                                [ngClass]="{'link': this.current_page == pageNum}" (click)="getStockPage(pageNum)">
-                                {{ (pageNum != undefined) ? paginationIllusion(pageNum) : 1 }}
-                            </a>
-                        </li>
-                        <li><a class="link" (click)="getStockPage(this.current_page + 1)"><i
-                                    class="material-icons">chevron_right</i></a></li>
-                    </ul>
-                </div>
+        <div class="col s12 m6 l12">
+          <div class="card center">
+            <div class="card-content">
+              <div class="card-title">
+                No Stocks Items
+                <h5>
+                  {{
+                    (this.no_stocks | async)?.length >= 1 ? (this.no_stocks | async)?.length : 0
+                  }}
+                  Items
+                </h5>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+    <div class="col s12 m12 l9">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Stocks</span>
+          <form (ngSubmit)="searchSubmit()" [formGroup]="this.search_form">
+            <div class="row valign-wrapper">
+              <div class="col s9 m10 l10 input-field">
+                <input
+                  type="text"
+                  class="validate"
+                  id="item"
+                  (focus)="this.item_placeholder = 'Search item.'"
+                  [placeholder]="this.item_placeholder"
+                  formControlName="search_name"
+                />
+                <label for="item">Item</label>
+              </div>
+              <button class="btn waves-effect btn-small col s3 m2 l2 green">Search</button>
+            </div>
+          </form>
+          <table class="responsive-table centered" style="table-layout: fixed">
+            <thead class="blue lighten-1 white-text">
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Unit</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="this.stockList != undefined && (this.stockList | async)?.length <= 0">
+                <td colspan="8">
+                  No Items Available
+                  <br />
+                  <a class="link modal-trigger" data-target="add_item">Add item</a>
+                </td>
+              </tr>
+              <tr *ngFor="let data of this.stockList | async">
+                <td>{{ data.productName }}</td>
+                <td style="word-wrap: break-word">
+                  {{ data.productDescription }}
+                </td>
+                <td>{{ data.productUnit }}</td>
+                <td>${{ data.productPrice }}</td>
+                <td>{{ data.productQuantity }}</td>
+                <td>{{ data.category.categoryName }}</td>
+                <td>{{ data.productStatus }}</td>
+                <td>
+                  <a
+                    class="link modal-trigger"
+                    data-target="update_item"
+                    (click)="setUpdateForm(data)"
+                    >Update</a
+                  >
+                  |
+                  <a
+                    class="link modal-trigger"
+                    id="delete_item"
+                    data-target="delete_item"
+                    (click)="setDeleteData(data.id, data.productName)"
+                    >Delete</a
+                  >
+                  |
+                  <a
+                    class="link modal-trigger"
+                    data-target="details_item"
+                    (click)="setItemDetails(data)"
+                    >Details</a
+                  >
+                </td>
+              </tr>
+              <tr *ngIf="this.stockList != undefined && (this.stockList | async)?.length >= 1">
+                <td colspan="8">
+                  <a class="link modal-trigger" data-target="add_item">Add new item.</a>
+                </td>
+                <td colspan="8" *ngIf="this.stockList == undefined">
+                  <h6>Loading...</h6>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <ul class="pagination center">
+            <li>
+              <a
+                class="link"
+                (click)="this.current_page - 1 >= 0 ? getStockPage(this.current_page - 1) : 0"
+                ><i class="material-icons">chevron_left</i></a
+              >
+            </li>
+            <li>
+              <a
+                *ngFor="let pageNum of this.stock_paginations"
+                [ngClass]="{ link: this.current_page == pageNum }"
+                (click)="getStockPage(pageNum)"
+              >
+                {{ pageNum != undefined ? paginationIllusion(pageNum) : 1 }}
+              </a>
+            </li>
+            <li>
+              <a class="link" (click)="getStockPage(this.current_page + 1)"
+                ><i class="material-icons">chevron_right</i></a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -10,7 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StocksComponent } from './stocks/stocks.component';
 import { NgChartsModule } from 'ng2-charts';
 import { SuppliersComponent } from './suppliers/suppliers.component';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule } from '@angular/common/http';
 import { ModalItemDeleteComponent } from './stocks/modal-item-delete/modal-item-delete.component';
 import { ModalItemDetailsComponent } from './stocks/modal-item-details/modal-item-details.component';
 import { ModalItemUpdateComponent } from './stocks/modal-item-update/modal-item-update.component';
@@ -19,7 +19,6 @@ import { ModalDeleteSupplierComponent } from './suppliers/modal-delete-supplier/
 import { ModalUpdateSupplierComponent } from './suppliers/modal-update-supplier/modal-update-supplier.component';
 import { ModalAddSupplierComponent } from './suppliers/modal-add-supplier/modal-add-supplier.component';
 import { CategoriesComponent } from './categories/categories.component';
-
 
 @NgModule({
   declarations: [
@@ -36,7 +35,7 @@ import { CategoriesComponent } from './categories/categories.component';
     ModalDeleteSupplierComponent,
     ModalUpdateSupplierComponent,
     ModalAddSupplierComponent,
-    CategoriesComponent
+    CategoriesComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,9 +43,9 @@ import { CategoriesComponent } from './categories/categories.component';
     ReactiveFormsModule,
     FormsModule,
     NgChartsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

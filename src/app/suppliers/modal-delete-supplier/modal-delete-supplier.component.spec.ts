@@ -8,9 +8,8 @@ describe('ModalDeleteSupplierComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ModalDeleteSupplierComponent ]
-    })
-    .compileComponents();
+      declarations: [ModalDeleteSupplierComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ModalDeleteSupplierComponent);
     component = fixture.componentInstance;

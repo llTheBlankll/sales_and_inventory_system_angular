@@ -1,4 +1,4 @@
-import { Component, OnInit, } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs/internal/observable/of';
@@ -10,13 +10,11 @@ declare function activateModals(): any;
 @Component({
   selector: 'app-stocks',
   templateUrl: './stocks.component.html',
-  styleUrls: ['./stocks.component.css']
+  styleUrls: ['./stocks.component.css'],
 })
-
 export class StocksComponent implements OnInit {
-
-  item_placeholder: string = "";
-  stockList!: Observable<any>
+  item_placeholder: string = '';
+  stockList!: Observable<any>;
   // This variable is used for how 'many' items is below the quantity of (The configuration of the rest api (default: 10))
   low_stocks!: Observable<any>;
   // Stocks that has the quantity of 0
@@ -27,12 +25,12 @@ export class StocksComponent implements OnInit {
   These three variables are used for updating the item at Update Modal (modal-item-update component)
   */
   updating_item_id: number = 0;
-  updating_item_name: string = "";
+  updating_item_name: string = '';
   item_form!: Stock;
 
   // Search form is the form above the <table>.
   search_form: FormGroup = new FormGroup({
-    search_name: new FormControl("", Validators.required)
+    search_name: new FormControl('', Validators.required),
   });
 
   // Item to be deleted
@@ -46,8 +44,7 @@ export class StocksComponent implements OnInit {
   stock_paginations: any;
   current_page: number = 0;
 
-  constructor(private requester: RequesterService) {
-  }
+  constructor(private requester: RequesterService) {}
 
   ngOnInit(): void {
     /*
@@ -63,39 +60,35 @@ export class StocksComponent implements OnInit {
     this.no_stocks = this.requester.getNoStockItems();
 
     // Initialize Pagination
-    this.requester.stockPagination(0).subscribe(
-      {
-        next: pagination => {
-          let re = /\[|\]/gi;
-          let data = pagination.replace(re, "").split(",");
-          this.stock_paginations = data;
-        },
-        error: err => {
-          console.error(err);
-        }
-      }
-    );
+    this.requester.stockPagination(0).subscribe({
+      next: (pagination) => {
+        let re = /\[|\]/gi;
+        let data = pagination.replace(re, '').split(',');
+        this.stock_paginations = data;
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
 
     // Activate Modals.
     activateModals();
   }
 
-
   // * This will get called when the user pressed Search button.
   searchSubmit() {
-    console.log(typeof (this.stock_paginations));
+    console.log(typeof this.stock_paginations);
     console.log(this.stock_paginations);
   }
 
   setDeleteData(id: number | undefined | null, name: string) {
     this.delete_item = {
       item_id: id,
-      item_name: name
+      item_name: name,
     };
   }
 
   setUpdateForm(stock: Stock) {
-
     // Send the data to the update modal (Child)
     this.item_form = stock;
   }
@@ -105,13 +98,13 @@ export class StocksComponent implements OnInit {
   }
 
   getStockPage(pageNum: number) {
-    console.log("Getting Stocks at Page: " + pageNum);
+    console.log('Getting Stocks at Page: ' + pageNum);
     /* 
     Get Stock List Page 1.
     NOTE: Page 1 starts at 0.
      */
     this.requester.getStockListInPage(pageNum).subscribe({
-      next: data => {
+      next: (data) => {
         if (data.length > 0) {
           this.stockList = of(data);
 
@@ -120,32 +113,32 @@ export class StocksComponent implements OnInit {
           Refresh the pagination below the table.
           */
           this.requester.stockPagination(pageNum).subscribe({
-            next: data => {
+            next: (data) => {
               // The data that was received was a string ("[0,1,2]"),
               let re = /\[|\]/gi; // * This is used to remove the brackets.
               /*
               and make it an Array by splitting it with a delimiter of ",";
               this is not an Array so we will remove the brackets ('[]')
               */
-              if (data.replace(re, "").split(",").length >= 1) {
-                this.stock_paginations = data.replace(re, "").split(",");
+              if (data.replace(re, '').split(',').length >= 1) {
+                this.stock_paginations = data.replace(re, '').split(',');
                 this.current_page = pageNum;
               }
               // * Set the current page to 'pageNum';
               console.log(data);
-              console.log(this.stock_paginations + " = " + this.current_page);
+              console.log(this.stock_paginations + ' = ' + this.current_page);
             },
-            error: error => {
+            error: (error) => {
               console.error(error);
-            }
+            },
           });
         } else {
-          console.log("You have reached the last Item")
+          console.log('You have reached the last Item');
         }
       },
-      error: error => {
+      error: (error) => {
         console.error(error);
-      }
+      },
     });
   }
 

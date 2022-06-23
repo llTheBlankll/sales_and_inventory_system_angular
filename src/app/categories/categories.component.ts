@@ -9,7 +9,7 @@ import { RequesterService } from '../requester.service';
   styleUrls: ['./categories.component.css'],
 })
 export class CategoriesComponent implements OnInit {
-  constructor(private requester: RequesterService) { }
+  constructor(private requester: RequesterService) {}
 
   categories!: Observable<any>;
   current_page = 0;

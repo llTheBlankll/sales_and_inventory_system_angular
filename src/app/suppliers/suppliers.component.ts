@@ -10,14 +10,13 @@ declare function activateModals(): any;
 @Component({
   selector: 'app-suppliers',
   templateUrl: './suppliers.component.html',
-  styleUrls: ['./suppliers.component.css']
+  styleUrls: ['./suppliers.component.css'],
 })
 export class SuppliersComponent implements OnInit {
-
   supplierList!: Observable<any>;
   supplierData!: Observable<any>;
 
-  constructor(private requester: RequesterService, private logger: LoggerService) { }
+  constructor(private requester: RequesterService, private logger: LoggerService) {}
 
   // Page 1 starts at 0.
   current_page: number = 0;
@@ -30,29 +29,27 @@ export class SuppliersComponent implements OnInit {
     // Initialize Modals.
     activateModals();
 
-    this.requester.getSupplierPagination(0).subscribe(
-      {
-        next: pagination => {
-          let re = /\[|\]/gi;
-          let data = pagination.replace(re, "").split(",");
-          this.pagination = data;
-        },
-        error: err => {
-          console.error(err);
-        }
-      }
-    );
+    this.requester.getSupplierPagination(0).subscribe({
+      next: (pagination) => {
+        let re = /\[|\]/gi;
+        let data = pagination.replace(re, '').split(',');
+        this.pagination = data;
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
   }
 
   loadSupplierTableContent() {
     // * Get Supplier List and display it to the table.
     this.requester.getSupplierListInPage(0).subscribe({
-      next: data => {
+      next: (data) => {
         this.supplierList = of(data);
       },
-      error: error => {
+      error: (error) => {
         this.logger.errorLog(error);
-      }
+      },
     });
   }
 
@@ -67,7 +64,7 @@ export class SuppliersComponent implements OnInit {
     NOTE: Page 1 starts at 0.
      */
     this.requester.getSupplierListInPage(pageNum).subscribe({
-      next: data => {
+      next: (data) => {
         if (data.length > 0) {
           this.supplierList = of(data);
 
@@ -76,30 +73,29 @@ export class SuppliersComponent implements OnInit {
           Refresh the pagination below the table.
           */
           this.requester.getSupplierPagination(pageNum).subscribe({
-            next: data => {
+            next: (data) => {
               // The data that was received was a string ("[0,1,2]"),
               let re = /\[|\]/gi; // * This is used to remove the brackets.
               /*
               and make it an Array by splitting it with a delimiter of ",";
               this is not an Array so we will remove the brackets ('[]')
               */
-              if (data.replace(re, "").split(",").length >= 1) {
-                this.pagination = data.replace(re, "").split(",");
+              if (data.replace(re, '').split(',').length >= 1) {
+                this.pagination = data.replace(re, '').split(',');
                 this.current_page = pageNum;
               }
             },
-            error: error => {
+            error: (error) => {
               console.error(error);
-            }
+            },
           });
-        }
-        else {
-          console.log("You have reached the last supplier.");
+        } else {
+          console.log('You have reached the last supplier.');
         }
       },
-      error: error => {
+      error: (error) => {
         console.error(error);
-      }
+      },
     });
   }
 

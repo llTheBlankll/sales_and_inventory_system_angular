@@ -1,54 +1,47 @@
 import { AfterViewInit, Component, Host, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Stock, Category} from '../../entities';
+import { Stock, Category } from '../../entities';
 import { RequesterService } from '../../requester.service';
 import { StocksComponent } from '../stocks.component';
-import * as M from "materialize-css";
+import * as M from 'materialize-css';
 
 declare function activateSelectors(): any;
 @Component({
   selector: 'app-modal-item-update',
   templateUrl: './modal-item-update.component.html',
-  styleUrls: ['./modal-item-update.component.css']
+  styleUrls: ['./modal-item-update.component.css'],
 })
-
-
 export class ModalItemUpdateComponent implements OnInit, AfterViewInit {
-
-  constructor(private requester: RequesterService, @Host() private stock: StocksComponent) { 
-  }
-
+  constructor(private requester: RequesterService, @Host() private stock: StocksComponent) {}
 
   // Data provided by parent component of what item to update.
   @Input()
   item_data!: Stock;
 
   // The form in front of the modal (You can totally see it.)
-  item_new_form: FormGroup = new FormGroup(
-    {
-      productName: new FormControl("", Validators.required),
-      productDescription: new FormControl("", Validators.required),
-      productUnit: new FormControl("", Validators.required),
-      productPrice: new FormControl("", Validators.required),
-      productQuantity: new FormControl("", Validators.required),
-      productStatus: new FormControl("", Validators.required),
-      category_name: new FormControl("", Validators.required),
-    }
-  );
+  item_new_form: FormGroup = new FormGroup({
+    productName: new FormControl('', Validators.required),
+    productDescription: new FormControl('', Validators.required),
+    productUnit: new FormControl('', Validators.required),
+    productPrice: new FormControl('', Validators.required),
+    productQuantity: new FormControl('', Validators.required),
+    productStatus: new FormControl('', Validators.required),
+    category_name: new FormControl('', Validators.required),
+  });
 
   all_categories: Category | any;
 
   ngOnInit(): void {
     // Get all categories for the dropdown category in form.
     this.requester.getCategoryList().subscribe({
-      next: data => {
+      next: (data) => {
         this.all_categories = data;
         // Reload Selectors.
         activateSelectors();
       },
-      error: error => {
+      error: (error) => {
         console.error(error);
-      }
+      },
     });
   }
 
@@ -62,28 +55,28 @@ export class ModalItemUpdateComponent implements OnInit, AfterViewInit {
     let item: Stock[] = [];
 
     // Get the category.
-    this.requester.getCategoryByName(this.item_new_form.controls["category_name"].value).subscribe({
-      next: data => {
+    this.requester.getCategoryByName(this.item_new_form.controls['category_name'].value).subscribe({
+      next: (data) => {
         // Assign the data collected from user and convert it into Stocks interface that can be used for updating the data.
         item.push({
           id: this.item_data.id,
-          productName: this.item_new_form.controls["productName"].value,
-          productDescription: this.item_new_form.controls["productDescription"].value,
-          productUnit: this.item_new_form.controls["productUnit"].value,
-          productPrice: this.item_new_form.controls["productPrice"].value,
-          productQuantity: this.item_new_form.controls["productQuantity"].value,
-          productStatus: this.item_new_form.controls["productStatus"].value,
+          productName: this.item_new_form.controls['productName'].value,
+          productDescription: this.item_new_form.controls['productDescription'].value,
+          productUnit: this.item_new_form.controls['productUnit'].value,
+          productPrice: this.item_new_form.controls['productPrice'].value,
+          productQuantity: this.item_new_form.controls['productQuantity'].value,
+          productStatus: this.item_new_form.controls['productStatus'].value,
           category: data,
           productOtherDetails: null,
-          supplier: undefined
-        })
+          supplier: undefined,
+        });
 
         // Request the data to be updated.
         this.requester.updateStock(item[0]).subscribe({
           // If success, Close the modal.
-          next: data => {
+          next: (data) => {
             // Current modal instance which is Update Modal.
-            let close_modal = new M.Modal(document.getElementById("update_item")!);
+            let close_modal = new M.Modal(document.getElementById('update_item')!);
 
             // Reset the form to blank.
             this.item_new_form.reset();
@@ -92,14 +85,14 @@ export class ModalItemUpdateComponent implements OnInit, AfterViewInit {
             close_modal.close();
             this.refreshStockTables();
           },
-          error: error => {
+          error: (error) => {
             console.error(error);
-          }
-        })
+          },
+        });
       },
-      error: error => {
+      error: (error) => {
         console.error(error);
-      }
+      },
     });
   }
 

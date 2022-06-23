@@ -1,66 +1,104 @@
 <div id="add_item" class="modal">
-    <div class="modal-content">
-        <h5>Add Item</h5>
+  <div class="modal-content">
+    <h5>Add Item</h5>
+    <div class="row">
+      <div class="col s12">
         <div class="row">
-            <div class="col s12">
-                <div class="row">
-                    <form [formGroup]="this.item_form">
-                        <div class="col s12 m12 l6 input-field">
-                            <label for="product_name">Name</label>
-                            <input formControlName="productName" type="text" name="product_name" id="product_name"
-                                class="validate">
-                        </div>
-                        <div class="col s12 m12 l6 input-field">
-                            <label for="product_unit">Unit</label>
-                            <input formControlName="productUnit" type="text" name="product_unit" id="product_unit"
-                                class="validate">
-                        </div>
-                        <div class="col s12 m12 l6 input-field">
-                            <label for="product_price">Price</label>
-                            <input formControlName="productPrice" type="number" name="product_price" id="product_price"
-                                class="validate">
-                        </div>
-                        <div class="col s12 m12 l6 input-field">
-                            <label for="product_quantity">Quantity</label>
-                            <input formControlName="productQuantity" type="number" name="product_quantity"
-                                id="product_quantity" class="validate">
-                        </div>
-                        <div class="col s12 m12 l6 input-field">
-                            <select formControlName="category_name">
-                                <option value="" selected disabled>Choose Category</option>
-                                <option *ngFor="let category of this.all_categories" [value]="category.categoryName">
-                                    {{ category.categoryName }}</option>
-                            </select>
-                            <label>Select Category:</label>
-                        </div>
-                        <div class="col s12 m12 l6 input-field">
-                            <select formControlName="productStatus">
-                                <option value="" disabled selected>Select Status</option>
-                                <option value="Deployed">Deployed</option>
-                                <option value="Archived">Archived</option>
-                                <option value="Discontinued">Discontinued</option>
-                            </select>
-                            <label>Product Status</label>
-                        </div>
-                        <div class="col s12 m12 l6 input-field">
-                            <select formControlName="supplier_name">
-                                <option value="" disabled selected>Choose Supplier</option>
-                                <option *ngFor="let supplier of this.all_suppliers" [value]="supplier.supplierName">{{ supplier.supplierName }}</option>
-                            </select>
-                            <label>Supplier</label>
-                        </div>
-                        <div class="col s12 m12 l6 input-field">
-                            <label for="product_description">Description</label>
-                            <textarea formControlName="productDescription" name="product_description"
-                                id="product_description" cols="30" rows="10" class="materialize-textarea"></textarea>
-                        </div>
-                    </form>
-                </div>
+          <form [formGroup]="this.item_form">
+            <div class="col s12 m12 l6 input-field">
+              <label for="product_name">Name</label>
+              <input
+                formControlName="productName"
+                type="text"
+                name="product_name"
+                id="product_name"
+                class="validate"
+              />
             </div>
+            <div class="col s12 m12 l6 input-field">
+              <label for="product_unit">Unit</label>
+              <input
+                formControlName="productUnit"
+                type="text"
+                name="product_unit"
+                id="product_unit"
+                class="validate"
+              />
+            </div>
+            <div class="col s12 m12 l6 input-field">
+              <label for="product_price">Price</label>
+              <input
+                formControlName="productPrice"
+                type="number"
+                name="product_price"
+                id="product_price"
+                class="validate"
+              />
+            </div>
+            <div class="col s12 m12 l6 input-field">
+              <label for="product_quantity">Quantity</label>
+              <input
+                formControlName="productQuantity"
+                type="number"
+                name="product_quantity"
+                id="product_quantity"
+                class="validate"
+              />
+            </div>
+            <div class="col s12 m12 l6 input-field">
+              <select formControlName="category_name">
+                <option value="" selected disabled>Choose Category</option>
+                <option
+                  *ngFor="let category of this.all_categories"
+                  [value]="category.categoryName"
+                >
+                  {{ category.categoryName }}
+                </option>
+              </select>
+              <label>Select Category:</label>
+            </div>
+            <div class="col s12 m12 l6 input-field">
+              <select formControlName="productStatus">
+                <option value="" disabled selected>Select Status</option>
+                <option value="Deployed">Deployed</option>
+                <option value="Archived">Archived</option>
+                <option value="Discontinued">Discontinued</option>
+              </select>
+              <label>Product Status</label>
+            </div>
+            <div class="col s12 m12 l6 input-field">
+              <select formControlName="supplier_name">
+                <option value="" disabled selected>Choose Supplier</option>
+                <option *ngFor="let supplier of this.all_suppliers" [value]="supplier.supplierName">
+                  {{ supplier.supplierName }}
+                </option>
+              </select>
+              <label>Supplier</label>
+            </div>
+            <div class="col s12 m12 l6 input-field">
+              <label for="product_description">Description</label>
+              <textarea
+                formControlName="productDescription"
+                name="product_description"
+                id="product_description"
+                cols="30"
+                rows="10"
+                class="materialize-textarea"
+              ></textarea>
+            </div>
+          </form>
         </div>
+      </div>
     </div>
-    <div class="modal-footer">
-        <button class="modal-close btn red lighten-1 text-white" id="close_modal">Close</button>
-        <button class="btn green lighten-1 text-white" [disabled]="!this.item_form.valid" (click)="addItem()">Create</button>
-    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="modal-close btn red lighten-1 text-white" id="close_modal">Close</button>
+    <button
+      class="btn green lighten-1 text-white"
+      [disabled]="!this.item_form.valid"
+      (click)="addItem()"
+    >
+      Create
+    </button>
+  </div>
 </div>
