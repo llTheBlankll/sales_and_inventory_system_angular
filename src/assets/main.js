@@ -1,11 +1,11 @@
 function activateDropdowns() {
-  $(".dropdown-trigger").dropdown();
+  $('.dropdown-trigger').dropdown();
 }
 
 function activateModals() {
-  $(".modal").modal();
+  $('.modal').modal();
 }
 
 function activateSelectors() {
-  $("select").formSelect();
+  $('select').formSelect();
 }

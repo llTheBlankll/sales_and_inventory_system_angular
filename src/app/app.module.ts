@@ -8,7 +8,6 @@ import { TopnavComponent } from './topnav/topnav.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StocksComponent } from './stocks/stocks.component';
-import { NgChartsModule } from 'ng2-charts';
 import { SuppliersComponent } from './suppliers/suppliers.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalItemDeleteComponent } from './stocks/modal-item-delete/modal-item-delete.component';
@@ -37,7 +36,7 @@ import { CategoriesComponent } from './categories/categories.component';
     ModalAddSupplierComponent,
     CategoriesComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, FormsModule, NgChartsModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, FormsModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })

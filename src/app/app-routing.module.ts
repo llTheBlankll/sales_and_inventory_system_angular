@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'dashboard/stocks', component: StocksComponent },
   { path: 'dashboard/suppliers', component: SuppliersComponent },
   { path: 'dashboard/categories', component: CategoriesComponent },
-  { path: '**', component: ErrorComponent },
+  { path: '**', component: ErrorComponent }
 ];
 
 @NgModule({
